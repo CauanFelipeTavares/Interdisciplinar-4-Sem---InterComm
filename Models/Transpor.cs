@@ -1,6 +1,6 @@
 public class Transpor{
     
-    public int TransporId { get; set; }
+    public int IdTranspor { get; set; }
 
     public string TransporNomeFantasia { get; set; }
 

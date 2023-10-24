@@ -1,6 +1,6 @@
 public class Contratos 
 {
-    public int ContratoId{ get; set; }
+    public int IdContrato{ get; set; }
 
     public Locais Locais { get; set; }
 

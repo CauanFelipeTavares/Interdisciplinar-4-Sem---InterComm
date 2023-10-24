@@ -1,6 +1,6 @@
 public class Locais
 {
-    public int LocalId { get; set; }
+    public int IdLocal { get; set; }
 
     public string LocalNomeFantasia { get; set; }
 
