@@ -31,8 +31,8 @@ CREATE TABLE Motoristas (
 	IdMotorista		int		primary key		identity,
 	CodMotorista	int		foreign key		references Locais(IdLocal),
 	NomeMotorista	varchar(60) not null,
-	CPF				varchar(60),
-	CNH				varchar(60) not null,
+	CPF				varchar(11),
+	CNH				varchar(10) not null,
 )
 
 CREATE TABLE Conjuntos (
