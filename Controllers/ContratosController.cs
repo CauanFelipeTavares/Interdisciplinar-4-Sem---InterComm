@@ -8,4 +8,10 @@ public class ContratosController : Controller
     {
         this.ContratosData = ContratosData;
     }
+
+    public ActionResult Index()
+    {
+        List<Contratos> lista = ContratosData.Read();
+        return View(lista);
+    }
 }

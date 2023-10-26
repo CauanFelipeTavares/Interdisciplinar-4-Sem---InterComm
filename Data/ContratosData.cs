@@ -1,10 +1,21 @@
-public class ContratosData : IContratosData
+using Dapper;
+public class ContratosData : Database, IContratosData
 {
     private List<Contratos> Contratos = new();
 
     public List<Contratos> Read()
     {
-        return Contratos;
+        string querry = "SELECT * FROM Contratos C INNER JOIN Locais L ON C.CodLocal = L.IdLocal";
+
+        List<Contratos> lista = connection.Query<Contratos, Locais, Contratos>(querry, (C, L) =>
+        {
+            C.Locais = L;
+            return C;
+        },
+        splitOn: "IdLocal"
+        ).ToList();
+
+        return lista;
     }
 
     public Contratos Read(int IdContrato)

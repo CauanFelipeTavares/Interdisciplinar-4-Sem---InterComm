@@ -1,3 +1,51 @@
+@model List<Contratos>
+
 @{ Layout = "/Views/Shared/Layout.cshtml"; }
 
 <p><h1>Index Contratos</h1></p>
+
+<form action="/contratos/search" method="POST" class="input-group mb-3">
+    <input name="search" class="form-control"/>
+    <button class="btn btn-outline-secondary">Pesquisar</button>
+</form>
+<table class="table table-hover">
+    <tr>
+        <th>ID</th>
+        <th>Nome Fantasia</th>
+        <th>Razao Social</th>
+        <th>CNPJ</th>
+        <th>Tipo Local</th>
+        <th>ANTT</th>
+        <th>IE</th>
+        <th>CEP</th>
+        <th>Logradouro</th>
+        <th>Bairro</th>
+        <th>Cidade</th>
+        <th>Estado</th>
+        <th>Numero</th>
+        <th>Complemento</th>
+    </tr>
+    @foreach (var local in Model)
+    {
+    <tr>
+        <td>@local.Volume</td>
+        <td>@local.VolumeAtual</td>
+        <td>@local.VolumePendente</td>
+        <td>@local.Locais.IdLocal</td>
+        <td>@local.Locais.LocalNomeFantasia</td>
+        <td>@local.Locais.LocalRazaoSocial</td>
+        <td>@local.Locais.CNPJ</td>
+        <td>@local.Locais.TipoLocal</td>
+        <td>@local.Locais.ANTT</td>
+        <td>@local.Locais.IE</td>
+        <td>@local.Locais.CEP</td>
+        <td>@local.Locais.Logradouro</td>
+        <td>@local.Locais.Bairro</td>
+        <td>@local.Locais.Cidade</td>
+        <td>@local.Locais.Estado</td>
+        <td>@local.Locais.Numero</td>
+        <td>@local.Locais.Complemento</td>
+    </tr>
+    }
+</table>
+

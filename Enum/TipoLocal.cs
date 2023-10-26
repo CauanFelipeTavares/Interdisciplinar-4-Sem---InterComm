@@ -2,5 +2,6 @@ public enum TipoLocal
 {
     Usina,
     Base,
-    Posto
+    Posto,
+    Transportadora
 }

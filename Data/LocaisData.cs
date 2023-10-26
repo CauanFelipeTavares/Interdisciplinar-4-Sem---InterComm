@@ -1,34 +1,32 @@
-using Microsoft.Data.SqlClient;
+using Dapper;
 
 public class LocaisData : Database, ILocaisData
 {
-    private List<Locais> locais = new();
-
     public List<Locais> Read()
-    {
-        return locais;
-    }
-
-    public List<Locais> Read(String nome)
     {
         string querry =  "SELECT * FROM Locais";
 
-        SqlCommand cmd = new(querry, connection);
-        SqlDataReader reader = cmd.ExecuteReader();
+        List<Locais> lista = (List<Locais>)connection.Query<Locais>(querry);
 
-        List<Locais> lista = new();
-
-        while(reader.Read())
-        {
-            
-        }
-
-        return locais;
+        return lista;
     }
 
-    public Locais Read(int LocalId)
+    public List<Locais> Read(String search)
     {
-        return locais[0];
+        string querry =  "SELECT * FROM Locais WHERE LocalRazaoSocial LIKE @search";
+
+        List<Locais> lista = (List<Locais>)connection.Query<Locais>(querry, new{search = "%" + search + "%"});
+
+        return lista;
+    }
+
+    public Locais Read(int IdLocal)
+    {
+        string querry =  "SELECT * FROM Locais WHERE IdLocal = @IdLocal";
+
+        Locais lista = (Locais)connection.Query<Locais>(querry, new{IdLocal = IdLocal});
+
+        return lista;
     }
 
     public void Create(Locais local)

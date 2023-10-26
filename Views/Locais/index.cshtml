@@ -8,4 +8,40 @@
     <input name="search" class="form-control"/>
     <button class="btn btn-outline-secondary">Pesquisar</button>
 </form>
-@Model.ToArray();
+<table class="table table-hover">
+    <tr>
+        <th>ID</th>
+        <th>Nome Fantasia</th>
+        <th>Razao Social</th>
+        <th>CNPJ</th>
+        <th>Tipo Local</th>
+        <th>ANTT</th>
+        <th>IE</th>
+        <th>CEP</th>
+        <th>Logradouro</th>
+        <th>Bairro</th>
+        <th>Cidade</th>
+        <th>Estado</th>
+        <th>Numero</th>
+        <th>Complemento</th>
+    </tr>
+    @foreach (var local in Model)
+    {
+    <tr>
+        <td>@local.IdLocal</td>
+        <td>@local.LocalNomeFantasia</td>
+        <td>@local.LocalRazaoSocial</td>
+        <td>@local.CNPJ</td>
+        <td>@local.TipoLocal</td>
+        <td>@local.ANTT</td>
+        <td>@local.IE</td>
+        <td>@local.CEP</td>
+        <td>@local.Logradouro</td>
+        <td>@local.Bairro</td>
+        <td>@local.Cidade</td>
+        <td>@local.Estado</td>
+        <td>@local.Numero</td>
+        <td>@local.Complemento</td>
+    </tr>
+    }
+</table>
