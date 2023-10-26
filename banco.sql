@@ -14,7 +14,7 @@ CREATE TABLE Locais (
 	IdLocal				int		primary key		identity,
 	LocalNomeFantasia	varchar(60),
 	LocalRazaoSocial	varchar(60)		not null,
-	CNPJ				varchar(20)		not null, -- conferir quantos caracteres depois
+	CNPJ				varchar(14)		not null, -- conferir quantos caracteres depois
 	TipoLocal			int				not null,
 	ANTT				varchar(30),	
 	IE					varchar(30),
