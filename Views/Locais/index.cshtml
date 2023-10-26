@@ -1,0 +1,11 @@
+@model List<Locais>
+
+@{ Layout = "/Views/Shared/Layout.cshtml"; }
+
+<p><h1>Index Locais</h1></p>
+
+<form action="/locais/search" method="POST" class="input-group mb-3">
+    <input name="search" class="form-control"/>
+    <button class="btn btn-outline-secondary">Pesquisar</button>
+</form>
+@Model.ToArray();
