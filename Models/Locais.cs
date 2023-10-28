@@ -22,7 +22,7 @@ public class Locais
 
     public required string Cidade { get; set; }
 
-    public required string Estado { get; set; }
+    public required Estados Estado { get; set; }
 
     public string? Numero { get; set; }
 

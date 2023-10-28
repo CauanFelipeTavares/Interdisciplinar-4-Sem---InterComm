@@ -59,4 +59,11 @@ public class LocaisController : Controller
         LocaisData.Delete(id);
         return RedirectToAction("Index");
     }
+
+    public JsonResult SearchJson(int id)
+    {
+        Locais locais = LocaisData.Read(id);
+
+        return Json(locais);
+    }
 }

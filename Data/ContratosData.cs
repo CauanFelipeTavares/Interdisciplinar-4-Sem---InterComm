@@ -5,9 +5,11 @@ public class ContratosData : Database, IContratosData
 
     public List<Contratos> Read()
     {
-        string querry = "SELECT * FROM Contratos C INNER JOIN Locais L ON C.CodLocal = L.IdLocal";
+        string query = @"SELECT * 
+                            FROM Contratos C 
+                            INNER JOIN Locais L ON L.IdLocal = C.CodLocal";
 
-        List<Contratos> lista = connection.Query<Contratos, Locais, Contratos>(querry, (C, L) =>
+        List<Contratos> lista = connection.Query<Contratos, Locais, Contratos>(query, (C, L) =>
         {
             C.Locais = L;
             return C;

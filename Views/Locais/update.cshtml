@@ -1,0 +1,151 @@
+@model Locais
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{ Layout = "/Views/Shared/Layout.cshtml"; }
+
+<p><h2 class="text-center">Alterar Local</h2></p>
+
+<form action="/locais/update" method="post">
+    <div class="row">
+        <div class="col-md-2">
+            <input class="form-control" type="text" name="IdLocal" id="IdLocal" value="@Model.IdLocal" disabled/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <p class="mb-0">Tipo</p>
+            <select class="form-control" asp-for="TipoLocal" asp-items="Html.GetEnumSelectList<TipoLocal>()">
+                <option disabled="" value="" selected="" hidden="">Selecione</option>
+            </select>
+        </div>
+        <div class="col-md-6">
+            <p class="mb-0">Razão Social</p>
+            <input value="@Model.LocalRazaoSocial" type="text" class="form-control" name="LocalRazaoSocial" id="LocalRazaoSocial" placeholder="Razão Social"/>
+        </div>
+        <div class="col-md-3">
+            <p class="mb-0">CPNJ</p>
+            <input value="@Model.CNPJ" type="text" class="form-control ls-mask-cnpj" name="CNPJ" id="CNPJ" placeholder="CNPJ"/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-7">
+            <p class="mb-0 mt-3">Nome Fantasia</p>
+            <input value="@Model.LocalNomeFantasia" type="text" class="form-control ls-mask-cnpj" name="LocalNomeFantasia" id="LocalNomeFantasia" placeholder="Nome Fantasia"/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <p class="mb-0 mt-3">ANTT</p>
+            <input value="@Model.ANTT" type="text" class="form-control ls-mask-cnpj" name="ANTT" id="ANTT" placeholder="ANTT"/>
+        </div>
+        <div class="col-md-3">
+            <p class="mb-0 mt-3">IE</p>
+            <input value="@Model.IE" type="text" class="form-control ls-mask-cnpj" name="IE" id="IE" placeholder="IE"/>
+        </div>
+    </div>
+
+    <!-- ENDEREÇO -->
+    <div class="row mt-5">
+        <!-- CEP -->
+        <div class="col-md-2">
+            <p class="mb-0">Endereço</p>
+            <div class="input-group mb-3">
+                <input value="@Model.CEP" type="text" class="form-control" name="CEP" id="CEP" placeholder="CEP"/>
+            </div>
+        </div>
+
+        <!-- Logradouro -->
+        <div class="col-md-6">
+            <p class="mb-0">Logradouro</p>
+            <div class="input-group mb-3">
+                <input value="@Model.Logradouro" type="text" class="form-control" name="Logradouro" id="Logradouro" placeholder="Logradouro" />
+            </div>
+        </div>
+
+        <!-- Bairro -->
+        <div class="col-md-4">
+            <p class="mb-0">Bairro</p>
+            <div class="input-group mb-3">
+                <input value="@Model.Bairro" type="text" class="form-control" name="Bairro" id="Bairro" placeholder="Bairro" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+
+        <!-- Numero -->
+        <div class="col-md-2">
+            <p class="mb-0">Numero</p>
+            <div class="input-group mb-3">
+                <input value="@Model.Numero" type="text" class="form-control" name="Numero" id="Numero" placeholder="Numero" />
+            </div>
+        </div>
+        <!-- Complemento -->
+        <div class="col-md-4">
+            <p class="mb-0">Complemento</p>
+            <div class="input-group mb-">
+                <input value="@Model.Complemento" type="text" class="form-control" name="Complemento" id="Complemento" placeholder="Complemento" />
+            </div>
+        </div>
+
+        <!-- Estado -->
+        <div class="col-md-2">
+            <p class="mb-0">UF</p>
+            <div class="input-group mb-3">
+                <select class="form-control" asp-for="Estado" asp-items="Html.GetEnumSelectList<Estados>()">
+                    <option disabled="" value="" selected="" hidden="">Selecione</option>
+                </select>
+                @* <input type="text" class="form-control" name="Estado" id="Estado" placeholder="UF" /> *@
+            </div>
+        </div>
+        
+        <!-- Cidade -->
+        <div class="col-md-4">
+            <p class="mb-0">Cidade</p>
+            <div class="input-group mb-3">
+                <input value="@Model.Cidade" type="text" class="form-control" name="Cidade" id="Cidade" placeholder="Cidade" />
+            </div>
+        </div>
+    </div>
+    <!-- FIM ENDEREÇO -->
+
+    <div class="d-flex justify-content-between mt-2">
+        <button class="btn btn-danger" type="button" onclick="history.back()">Cancelar</button>
+        <!-- BOTÃO MODAL UPDATE -->
+        <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#Alterar">
+            Alterar
+        </button>
+    </div>
+
+    @* <input name="Responsaveis" class="form-control"/>
+    <input name="Telefones" class="form-control"/>
+    <input name="Emails" class="form-control"/> *@
+    
+    <!-- MODAL UPDATE -->
+    <div class="modal fade modal-xl" id="Alterar" tabindex="-1" role="dialog" aria-labelledby="IdAlterar" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="IdAlterar">ALTERAR</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">   
+                        DESEJA ALTERAR AS INFORMAÇÕES DO LOCAL ATUAL?
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-between">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">NÃO</button>
+                    <button class="btn btn-primary">SIM</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        var Alterar = document.getElementById('Alterar');
+        Alterar.addEventListener('show.bs.modal', function (event) {
+              let button = event.relatedTarget;
+              let recipient = button.getAttribute('data-bs-whatever');
+        });
+    </script>
+    
+</form>
