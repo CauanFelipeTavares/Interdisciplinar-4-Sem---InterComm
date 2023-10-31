@@ -1,13 +1,12 @@
 @model Locais
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{ Layout = "/Views/Shared/Layout.cshtml"; }
-
-<p><h1>Adicionar Locais</h1></p>
+@{ ViewData["title"] = "Adicionar Local"; }
 
 <form action="/locais/create" method="post">
     <div class="row">
         <div class="col-md-3">
-            <p class="mb-0">Tipo</p>
+            <p class="mb-0">Categoria</p>
             <select class="form-control" asp-for="TipoLocal" asp-items="Html.GetEnumSelectList<TipoLocal>()">
                 <option disabled="" value="" selected="" hidden="">Selecione</option>
             </select>
@@ -40,6 +39,7 @@
 
     <!-- ENDEREÇO -->
     <div class="row mt-5">
+        <p class="mb-0 mt-0"><h4>Endereço:</h4></p>
         <!-- CEP -->
         <div class="col-md-2">
             <p class="mb-0">Endereço</p>

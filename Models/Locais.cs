@@ -4,9 +4,9 @@ public class Locais
 
     public string? LocalNomeFantasia { get; set; }
 
-    public required string LocalRazaoSocial { get; set; }
+    public string? LocalRazaoSocial { get; set; }
 
-    public required string CNPJ { get; set; }
+    public string? CNPJ { get; set; }
 
     public TipoLocal TipoLocal { get; set; }
 
@@ -16,21 +16,21 @@ public class Locais
 
     public string? CEP { get; set; }
 
-    public required string Logradouro { get; set; }
+    public string? Logradouro { get; set; }
 
     public string? Bairro { get; set; }
 
-    public required string Cidade { get; set; }
+    public string? Cidade { get; set; }
 
-    public required Estados Estado { get; set; }
+    public Estados Estado { get; set; }
 
     public string? Numero { get; set; }
 
     public string? Complemento { get; set; }
 
-    public required List<string> Responsaveis { get; set; }
+    public List<string>? Responsaveis { get; set; }
 
-    public required List<string> Telefones { get; set; }
+    public List<string>? Telefones { get; set; }
 
-    public required List<string> Emails { get; set; }
+    public List<string>? Emails { get; set; }
 }

@@ -41,6 +41,12 @@ public class LocaisData : Database, ILocaisData
 
     public void Update(Locais local)
     {
+        char[] removes = {' ', '.', '/', '\\'};
+
+        local.CNPJ = local.CNPJ.Replace(".", "");
+        local.CNPJ = local.CNPJ.Replace("/", "");
+        local.CNPJ = local.CNPJ.Replace("-", "");
+
         string query = @"UPDATE Locais
                         SET LocalNomeFantasia = @LocalNomeFantasia,
                             LocalRazaoSocial = @LocalRazaoSocial,
