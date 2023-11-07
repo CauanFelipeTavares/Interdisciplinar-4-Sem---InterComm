@@ -3,19 +3,41 @@ using Microsoft.AspNetCore.Mvc;
 public class ContratosController : Controller
 {
     private IContratosData ContratosData;
+    private ILocaisData LocaisData;
 
-    public ContratosController(IContratosData contratosData)
+    public ContratosController (IContratosData ContratosData, ILocaisData LocaisData)
     {
-        ContratosData = contratosData;
+        this.ContratosData = ContratosData;
+        this.LocaisData = LocaisData;
     }
 
     public ActionResult Index()
     {
-        return View();
+        List<Contratos> lista = ContratosData.Read();
+        return View(lista);
     }
 
-    public ActionResult Adicionar()
+    public ActionResult Search(IFormCollection form)
     {
-        return View();
+        string search = form["search"];
+
+        List<Contratos> lista = ContratosData.Read(search);
+
+        return View("Index", lista);
     }
+
+    [HttpGet]
+    public ActionResult Create() 
+    {
+        List<Locais> locais = LocaisData.Read();
+        return View(locais);
+    }
+
+    [HttpPost]
+    public ActionResult Create(Contratos contratos)
+    {
+        ContratosData.Create(contratos);
+        return RedirectToAction("Index");
+    }
+
 }

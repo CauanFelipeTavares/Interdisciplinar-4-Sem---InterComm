@@ -2,15 +2,10 @@ using Microsoft.AspNetCore.Mvc;
 
 public class OrdemController : Controller
 {
-    private IOrdemData ordemData;
+    private IOrdemData OrdemData;
 
-    public OrdemController(IOrdemData ordemData)
+    public OrdemController (IOrdemData OrdemData)
     {
-        this.ordemData = ordemData;
-    }
-
-    public ActionResult Index()
-    {
-        return View();
+        this.OrdemData = OrdemData;
     }
 }

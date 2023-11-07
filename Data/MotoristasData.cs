@@ -9,39 +9,26 @@ public class MotoristasData : IMotoristasData
 
     public List<Motoristas> Read(String nome)
     {
-
-        var result = from l in Motoristas
-                        where l.MotoristaNome.ToLower().Contains(nome.ToLower())
-                        select l;
-
-        return result.ToList();
+        return Motoristas;
     }
 
-    public Motoristas Read(int MotoristaId)
+    public Motoristas Read(int IdMotorista)
     {
-        return Motoristas.FirstOrDefault(moto => moto.MotoristaId == MotoristaId);
+        return Motoristas[0];
     }
 
     public void Create(Motoristas motorista)
     {
-        Motoristas.Add(motorista);
+
     }
 
-    public void Delete(int MotoristaId)
+    public void Delete(int IdMotorista)
     {
-        foreach (var motorista in Motoristas)
-        {
-            if (motorista.MotoristaId == MotoristaId)
-            {
-                Motoristas.Remove(motorista);
-            }
-        }
+
     }
 
     public void Update(Motoristas motorista)
     {
-        Motoristas MotoristasToUpdate = Motoristas.First(moto => moto.MotoristaId == motorista.MotoristaId);
 
-        MotoristasToUpdate = motorista;
     }
 }

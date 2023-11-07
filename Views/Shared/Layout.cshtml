@@ -8,11 +8,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- BootStrap e Jquery-->
+    @*CSS E SCRIPT DO BOOTSTRAP 5*@
     <link rel="stylesheet" href="/lib/bootstrap5/css/bootstrap.min.css">
     <script src="/lib/bootstrap5/js/bootstrap.min.js"></script>
-    <script src="/script/jquery.js"></script>
 
+    @*CSS PADRAO*@
     <link rel="stylesheet" href="/css/style.css">
+
+    @*JQUERY*@
+    <script src="/lib/jquery/jquery.js"></script>
+
+    @*BIBLIOTECA JQUERY PARA APLICAR MASCARAS*@
+    <script src="/lib/jquery/jquery.mask.js"></script>
+    @*MASCARAS PARA CNPJ IE ANTT CEP*@
+    <script src="/script/mask.js"></script>
+
 </head>
 
 <body>
@@ -32,9 +42,25 @@
                         <a class="nav-link active" aria-current="page" href="./">Início</a>
                     </li> *@
                 </ul>
+                @* <ul class="navbar-nav me-auto">
+                    <li class="nav-item mt-3 me-auto">
+                        <h3 class="title-inter text-white">@ViewData["Title"]</h3>
+                    </li> *@
+                </ul> 
                 <ul class="navbar-nav d-flex justify-content-end">
                     <li class="nav-item">
-                        <img src="/src/img/CentralAgil_Banner.png" alt="Central Agil" height="70px">
+                        @{
+                            string index = (ViewData["index"] ?? string.Empty) as string;
+                            string title = (ViewData["title"] ?? string.Empty) as string;
+                        }
+                        @if (string.IsNullOrEmpty(index) && !string.IsNullOrEmpty(title))
+                        {
+                            <h3 class="title-inter text-white mt-3">@ViewData["Title"].ToString().ToUpper()</h3>
+                        }
+                        else if (index == "index")
+                        {
+                            <img src="/src/img/CentralAgil_Banner.png" alt="Central Agil" height="70px">
+                        }
                     </li>
                     <li class="nav-item">
                         @if (true)

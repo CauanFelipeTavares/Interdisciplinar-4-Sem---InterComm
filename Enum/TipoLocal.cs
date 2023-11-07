@@ -1,6 +1,16 @@
+using System.ComponentModel.DataAnnotations;
+    
 public enum TipoLocal
 {
+    [Display(Name = "Usina")]
     Usina,
+
+    [Display(Name = "Base")]
     Base,
-    Posto
+
+    [Display(Name = "Posto")]
+    Posto,
+
+    [Display(Name = "Transportadora")]
+    Transportadora
 }

@@ -6,17 +6,17 @@ builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews();
 
 //
+builder.Services.AddTransient<IConjuntoData, ConjuntoData>();
 builder.Services.AddTransient<IContratosData, ContratosData>();
-builder.Services.AddTransient<IEnderecosData, EnderecosData>();
 builder.Services.AddTransient<ILocaisData, LocaisData>();
 builder.Services.AddTransient<IMotoristasData, MotoristasData>();
 builder.Services.AddTransient<IOrdemData, OrdemData>();
-builder.Services.AddTransient<ITransporData, TransporData>();
+builder.Services.AddTransient<INotaFiscalData, NotaFiscalData>();
 
 var app = builder.Build();
 
 // middlewares (configuro)
-app.MapControllerRoute("default", "/{controller=inicio}/{action=index}/{id?}");
+app.MapControllerRoute("default", "/{controller=home}/{action=index}/{id?}");
 
 app.UseStaticFiles();
 

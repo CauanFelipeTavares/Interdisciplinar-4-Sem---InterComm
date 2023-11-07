@@ -7,31 +7,23 @@ public class OrdemData : IOrdemData
         return Ordem;
     }
 
-    public Ordem Read(int OrdemId)
+    public Ordem Read(int IdOrdem)
     {
-        return Ordem.FirstOrDefault(ord => ord.OrdemId == OrdemId);
+        return Ordem[0];
     }
 
     public void Create(Ordem ordem)
     {
-        Ordem.Add(ordem);
+
     }
 
-    public void Delete(int OrdemId)
+    public void Delete(int IdOrdem)
     {
-        foreach (var ord in Ordem)
-        {
-            if (ord.OrdemId == OrdemId)
-            {
-                Ordem.Remove(ord);
-            }
-        }
+
     }
 
     public void Update(Ordem ordem)
     {
-        Ordem OrdemToUpdate = Ordem.First(ord => ord.OrdemId == ordem.OrdemId);
 
-        OrdemToUpdate = ordem;
     }
 }

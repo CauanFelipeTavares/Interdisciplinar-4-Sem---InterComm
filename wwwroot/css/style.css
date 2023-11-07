@@ -4,7 +4,7 @@
     src: url('/src/fonts/Inter-VariableFont_slnt,wght.ttf');
 }
 
-h1{
+h1, h2, h3, h4{
     font-family: 'Inter';
     font-weight: 900;
 }
@@ -18,25 +18,23 @@ form{
     background-color: #4b843c;
     border-bottom: #D6c427 solid 3px;
 }
-
 .title-inter{
     margin-left: 30px;
     text-shadow: 0px 6px 4px rgba(0,0,0,0.25);
 }
-
 .text-white{
     color: white;
 }
-
 .text-green{
     color: #A8DA57;
 }
 
-.table{
-    width: 60%;
-    margin-top: 5%;
-}
 
+.table{
+    /* width: 60%; */
+    border-radius: 6px;
+    overflow: hidden;
+}
 .home td:hover{
     background-color: #afb0b2;
 }
