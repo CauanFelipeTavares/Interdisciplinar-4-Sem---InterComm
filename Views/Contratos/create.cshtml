@@ -1,3 +1,72 @@
+@model List<Locais>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{ Layout = "/Views/Shared/Layout.cshtml"; }
+@{ 
+    ViewData["title"] = "Criar contrato";
+    Contratos teste = new(); 
+}
 
-<p><h1>Adicionar Contratos</h1></p>
+<form action="/contratos/create" method="post">
+
+    <!-- ROW LOCAL -->
+    <div class="row">
+        
+        <!-- LOCAL -->
+        <div class="col-md-3 mb-3">
+            <p class="mb-0">LOCAL</p>
+            <select class="form-control" name="CodLocal" id="CodLocal">
+                <option disabled="" value="" selected="" hidden="">Selecione</option>
+                @foreach (var local in Model)
+                {
+                    <option value="@local.IdLocal">@local.LocalRazaoSocial</option>
+                }
+            </select>
+        </div>
+    </div>
+
+    <!-- ROW INFORMAÇÕES -->
+    <div class="row">
+
+        <!-- COMMODIT -->
+        <div class="col-md-3">
+            <p class="mb-0">Commodit</p>
+            <select class="form-control" asp-for="@teste" asp-items="Html.GetEnumSelectList<Commodits>()">
+                <option disabled="" value="" selected="" hidden="">Selecione</option>
+            </select>
+        </div>
+
+        <!-- INICIO DO CONTRATO -->
+        <div class="col-md-3">
+            <p class="mb-0">Inicio do Contrato</p>
+            <input type="date" class="form-control" name="DataInicio" id="DataInicio" placeholder="Data de Inicio"/>
+        </div>
+
+        <!-- VOLUME -->
+        <div class="col-md-2">
+            <p class="mb-0">Volume</p>
+            <input type="text" class="form-control" name="Volume" id="Volume" placeholder="Volume"/>
+        </div>
+
+        <!-- TIPO VOLUME -->
+        <div class="col-md-2">
+            <p class="mb-0">&ensp;</p>
+            <select name="Tipo" id="Tipo" class="form-control">
+                <option value="0">Metros</option>
+                <option value="1">Litros</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <!-- VALOR UNITARIO -->
+        <div class="col-md-7 mb-3">
+            <p class="mb-0 mt-3">Valor Unitario</p>
+            <input type="text" class="form-control" name="ValorUnitario" id="ValorUnitario" placeholder="Valor Unitario"/>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-end">
+        <button class="btn btn-primary">Adicionar</button>
+    </div>
+</form>

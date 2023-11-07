@@ -28,9 +28,36 @@ public class Locais
 
     public string? Complemento { get; set; }
 
-    public List<string>? Responsaveis { get; set; }
+    public List<Responsaveis>? Responsaveis { get; set; }
 
-    public List<string>? Telefones { get; set; }
+    public List<Telefones>? Telefones { get; set; }
 
-    public List<string>? Emails { get; set; }
+    public List<Emails>? Emails { get; set; }
+}
+
+public class Responsaveis
+{
+    public int IdResponsavel { get; set; }
+
+    public int CodLocal { get; set; }
+
+    public string? Responsavel { get; set; }
+}
+
+public class Emails
+{
+    public int IdEmail { get; set; }
+
+    public int CodLocal { get; set; }
+
+    public string? Email { get; set; }
+}
+
+public class Telefones
+{
+    public int IdTelefone { get; set; }
+
+    public int CodLocal { get; set; }
+
+    public string? Telefone { get; set; }
 }

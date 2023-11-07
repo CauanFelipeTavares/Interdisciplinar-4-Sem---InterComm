@@ -2,7 +2,7 @@ public class Contratos
 {
     public int IdContrato{ get; set; }
 
-    public required Locais Locais { get; set; }
+    public Locais? Locais { get; set; }
 
     public Commodits Commodits { get; set; }
 

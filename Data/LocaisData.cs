@@ -24,7 +24,7 @@ public class LocaisData : Database, ILocaisData
     {
         string query =  "SELECT * FROM Locais WHERE IdLocal = @IdLocal";
 
-        Locais lista = connection.Query<Locais>(query, new { IdLocal = IdLocal }).FirstOrDefault();
+        Locais lista = connection.Query<Locais>(query, new { IdLocal }).FirstOrDefault();
 
         return lista;
     }
@@ -43,9 +43,10 @@ public class LocaisData : Database, ILocaisData
     {
         char[] removes = {' ', '.', '/', '\\'};
 
-        local.CNPJ = local.CNPJ.Replace(".", "");
-        local.CNPJ = local.CNPJ.Replace("/", "");
-        local.CNPJ = local.CNPJ.Replace("-", "");
+        local.CNPJ = local.CNPJ.Replace(".", "").Replace("/", "").Replace("-", "");
+        local.IE = local.IE.Replace(".", "").Replace("/", "").Replace("-", "");
+        local.ANTT = local.ANTT.Replace(".", "").Replace("/", "").Replace("-", "");
+        local.CEP = local.CEP.Replace(".", "").Replace("/", "").Replace("-", "");
 
         string query = @"UPDATE Locais
                         SET LocalNomeFantasia = @LocalNomeFantasia,
@@ -70,4 +71,28 @@ public class LocaisData : Database, ILocaisData
     {
         
     }
+
+    public List<Responsaveis> ReadResponaveis(int CodLocal)
+    {
+        string query = "SELECT * FROM Responsaveis WHERE CodLocal = @CodLocal";
+
+        List<Responsaveis> responsaveis = connection.Query<Responsaveis>(query, new{ CodLocal }).AsList();
+
+        return responsaveis;
+    }
+
+    public Responsaveis CreateResponsaveis(Responsaveis responsavel)
+    {
+        string query = @"
+            DECLARE @IdResponsavell INT;
+            EXEC Sp_Insert_Responsaveis @Responsavel, @CodLocal, @IdResponsavel = @IdResponsavell;
+            ";
+
+        using (var Teste = connection.QueryMultiple(query, new { responsavel.Responsavel, responsavel.CodLocal})){
+            var Respon = Teste.Read<Responsaveis>().FirstOrDefault();
+            responsavel.IdResponsavel = Respon.IdResponsavel;
+        }
+
+        return responsavel;
+    }   
 }

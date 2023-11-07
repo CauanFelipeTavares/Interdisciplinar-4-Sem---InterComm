@@ -1,3 +1,4 @@
+using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 
 public class LocaisController : Controller
@@ -60,10 +61,22 @@ public class LocaisController : Controller
         return RedirectToAction("Index");
     }
 
-    public JsonResult SearchJson(int id)
+    public JsonResult Responsaveis(int CodLocal)
     {
-        Locais locais = LocaisData.Read(id);
+        List<Responsaveis> responsaveis = LocaisData.ReadResponaveis(CodLocal);
 
-        return Json(locais);
+        return Json(responsaveis);
+    }
+
+    public JsonResult CreateResponsavel(Responsaveis responsaveis)
+    {
+        Responsaveis newResponsavel = LocaisData.CreateResponsaveis(responsaveis);
+
+        return Json(newResponsavel);
+    }
+
+    public void DeleteResponsavel(int id)
+    {
+        
     }
 }

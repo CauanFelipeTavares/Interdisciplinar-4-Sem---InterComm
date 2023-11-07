@@ -1,7 +1,9 @@
 @model Locais
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{ Layout = "/Views/Shared/Layout.cshtml"; }
-@{ ViewData["title"] = "Alterar Local"; }
+@{ 
+    ViewData["title"] = "Alterar Local"; 
+}
 
 <form action="/locais/update" method="post">
 <input type="text" name="IdLocal" id="IdLocal" value="@Model.IdLocal" hidden/> @* TRUE id local *@
@@ -32,7 +34,7 @@
         <!-- CNPJ -->
         <div class="col-md-3">
             <p class="mb-0">CNPJ</p>
-            <input value="@Model.CNPJ" type="text" class="form-control ls-mask-cnpj" name="CNPJ" id="CNPJ" placeholder="CNPJ" maxlength="14"/>
+            <input value="@Model.CNPJ" type="text" class="form-control CNPJ" name="CNPJ" id="CNPJ" placeholder="CNPJ" maxlength="14"/>
         </div>
     </div>
 
@@ -40,7 +42,7 @@
         <!-- NOME FANTASIA -->
         <div class="col-md-7">
             <p class="mb-0 mt-3">Nome Fantasia</p>
-            <input value="@Model.LocalNomeFantasia" type="text" class="form-control ls-mask-cnpj" name="LocalNomeFantasia" id="LocalNomeFantasia" placeholder="Nome Fantasia"/>
+            <input value="@Model.LocalNomeFantasia" type="text" class="form-control" name="LocalNomeFantasia" id="LocalNomeFantasia" placeholder="Nome Fantasia"/>
         </div>
     </div>
 
@@ -48,13 +50,13 @@
         <!-- ANTT -->
         <div class="col-md-2">
             <p class="mb-0 mt-3">ANTT</p>
-            <input value="@Model.ANTT" type="text" class="form-control ls-mask-cnpj" name="ANTT" id="ANTT" placeholder="ANTT" maxlength="8"/>
+            <input value="@Model.ANTT" type="text" class="form-control" name="ANTT" id="ANTT" placeholder="ANTT" maxlength="8"/>
         </div>
 
         <!-- IE -->
         <div class="col-md-3">
             <p class="mb-0 mt-3">IE</p>
-            <input value="@Model.IE" type="text" class="form-control ls-mask-cnpj" name="IE" id="IE" placeholder="IE" maxlength="9"/>
+            <input value="@Model.IE" type="text" class="form-control" name="IE" id="IE" placeholder="IE" maxlength="9"/>
         </div>
     </div>
     <!-- FIM ROWS INFORMAÇÔES -->
@@ -65,7 +67,7 @@
         <div class="col-md-2">
             <p class="mb-0">Endereço</p>
             <div class="input-group mb-3">
-                <input value="@Model.CEP" type="text" class="form-control" name="CEP" id="CEP" placeholder="CEP"/>
+                <input value="@Model.CEP" type="text" class="form-control CEP" name="CEP" id="CEP" placeholder="CEP"/>
             </div>
         </div>
 
@@ -85,6 +87,7 @@
             </div>
         </div>
     </div>
+
     <div class="row">
 
         <!-- Numero -->
@@ -125,17 +128,17 @@
 
     <div class="d-flex justify-content-between">
         <!-- BOTÂO MODAL RESPONSAVEIS -->
-        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#ModalResponsaveis">
+        <button type="button" class="btn btn-success ButtonResponsaveis" data-bs-toggle="modal" data-bs-target="#ModalResponsaveis" id="ButtonResponsaveis">
             Responsaveis
         </button>
 
         <!-- BOTÂO MODAL EMAILS -->
-        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#ModalEmails">
+        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#ModalEmails" id="ButtonEmails">
             E-mails
         </button>
 
         <!-- BOTÂO MODAL TELEFONES -->
-        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#ModalTelefones">
+        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#ModalTelefones" id="ButtonTelefones">
             Telefones
         </button>
 
@@ -163,18 +166,10 @@
                 @*MODAL BODY RESPONSAVEIS*@
                 <div class="modal-body">
                     <table class="table table-success table-striped">
-                        <tr>
-                            <td>Id</td>
-                            <td>Nome</td>
-                        </tr>
-                        <tr>
-                            <th></th>
-                            <th></th>
-                        </tr>
                     </table>
                     <div class="input-group">
-                        <input class="form-control" type="text" id="InputResponsavel">
-                        <button class="btn btn-primary" type="button" id="ButtonResponsavel">Adicionar</button>
+                        <input class="form-control" type="text" id="InputModalResponsaveis">
+                        <button class="btn btn-primary" type="button" id="ButtonModalResponsaveis">Adicionar</button>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -268,45 +263,6 @@
             </div>
         </div>
     </div>
+
 </form>
-
-    <script> @*SCRIPT MODAL RESPONSAVEIS*@
-        var ModalResponsaveis = document.getElementById('ModalResponsaveis');
-    
-        ModalResponsaveis.addEventListener('show.bs.modal', function (event) {
-              let button = event.relatedTarget;
-              let recipient = button.getAttribute('data-bs-whatever');
-        });
-    </script>
-
-    <script> @*SCRIPT MODAL EMAILS*@
-        var ModalEmails = document.getElementById('ModalEmails');
-
-        ModalEmails.addEventListener('show.bs.modal', function (event) {
-
-            let button = event.relatedTarget;
-            let recipient = button.getAttribute('data-bs-whatever');
-        });
-    </script>
-
-    <script> @*SCRIPT MODAL TELEFONES*@
-        var ModalTelefones = document.getElementById('ModalTelefones');
-    
-        ModalTelefones.addEventListener('show.bs.modal', function (event) {
-              // Button that triggered the modal
-              let button = event.relatedTarget;
-              // Extract info from data-bs-* attributes
-              let recipient = button.getAttribute('data-bs-whatever');
-    
-            // Use above variables to manipulate the DOM
-        });
-    </script>
-
-    <script> @*SCRIPT MODAL UPDATE*@
-        var Alterar = document.getElementById('Alterar');
-
-        Alterar.addEventListener('show.bs.modal', function (event) {
-              let button = event.relatedTarget;
-              let recipient = button.getAttribute('data-bs-whatever');
-        });
-    </script>
+<script src="/script/modal.js"></script>

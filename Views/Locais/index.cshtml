@@ -1,7 +1,10 @@
 @model List<Locais>
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{ Layout = "/Views/Shared/Layout.cshtml"; }
-@{ ViewData["title"] = "Locais";}
+@{ 
+    ViewData["title"] = "Locais";
+    Locais teste = new();
+}
 
 <div class="container d-flex justify-content-center mb-3 mt-3">
     <form action="/locais/search" method="POST" class="input-group mt-0">
@@ -11,7 +14,6 @@
         </div>
         <div class="input-group w-50 mt-2">
             <span class="input-group-text">Categoria</span>
-            @{ Locais teste = new();}
             <select class="form-select" asp-for="@teste" asp-items="Html.GetEnumSelectList<TipoLocal>()">
                 <option selected="" value="-1">Todas</option>
             </select>
@@ -40,30 +42,28 @@
         </tr>
         @foreach (var local in Model)
         {
-        <tr>
-            <td>@local.IdLocal</td>
-            <td>@local.LocalRazaoSocial</td>
-            <td>@local.LocalNomeFantasia</td>
-            <td id="CNPJ">@local.CNPJ</td>
-            <td>@local.TipoLocal</td>
-            @* <td>@local.ANTT</td>
-            <td>@local.IE</td>
-            <td>@local.CEP</td>
-            <td>@local.Logradouro</td>
-            <td>@local.Bairro</td> *@
-            <td>@local.Cidade</td>
-            <td>@local.Estado</td>
-            @* <td>@local.Numero</td>
-            <td>@local.Complemento</td> *@
-            <td>
-                <form action="/locais/update" method="GET" class="mt-0">
-                    @* <a href="/locais/update/@local.IdLocal"> *@
-                    <input type="hidden" name="Id" value="@local.IdLocal">
+            <tr>
+                <td>@local.IdLocal</td>
+                <td>@local.LocalRazaoSocial</td>
+                <td>@local.LocalNomeFantasia</td>
+                <td id="CNPJ" class="CNPJ">@local.CNPJ</td>
+                <td>@local.TipoLocal</td>
+                @* <td>@local.ANTT</td>
+                <td>@local.IE</td>
+                <td>@local.CEP</td>
+                <td>@local.Logradouro</td>
+                <td>@local.Bairro</td> *@
+                <td>@local.Cidade</td>
+                <td>@local.Estado</td>
+                @* <td>@local.Numero</td>
+                <td>@local.Complemento</td> *@
+                <td>
+                    <form action="/locais/update" method="GET" class="mt-0">
+                        <input type="hidden" name="Id" value="@local.IdLocal">
                         <button class="btn btn-primary btn-sm">Editar</button>
-                    @* </a> *@
-                </form>
-            </td>
-        </tr>
+                    </form>
+                </td>
+            </tr>
         }
     </table>
 </div>
