@@ -34,7 +34,7 @@ buttons.readResponsaveis.onclick = async () => {
                 $(dados).each(function (i){
                     // console.log(dados[i])
                     modal.innerHTML += `
-                    <tr>
+                    <tr id="linha_responsavel${dados[i].idResponsavel}>
                         <th>${dados[i].idResponsavel}</th>
                         <th>${dados[i].responsavel}</th>
                         <th class="text-end"><button class="btn btn-danger btn-sm" type="button" onclick="deletar('responsavel', ${dados[i].idResponsavel}, ${modal})">Excluir</button></th>
@@ -67,10 +67,10 @@ buttons.createResponsavel.onclick = async () => {
             success: function (dados){
                 // console.log(dados)
                 modal.innerHTML += `
-                    <tr>
+                    <tr id="linha_responsavel${dados.idResponsavel}>
                         <th>${dados.idResponsavel}</th>
                         <th>${dados.responsavel}</th>
-                        <th class="text-end"><button class="btn btn-danger btn-sm" type="button" value="${dados.idResponsavel}" onclick="deletar('responsavel', ${dados.idResponsavel}, ${modal})">Excluir</button></th>
+                        <th class="text-end"><button class="btn btn-danger btn-sm" type="button" onclick="deletar('responsavel', ${dados.idResponsavel}, ${modal})">Excluir</button></th>
                     </tr>
                     `
                 Responsavel = ''
@@ -105,7 +105,7 @@ buttons.readEmails.onclick = async () => {
                 $(dados).each(function (i){
                     // console.log(dados[i])
                     modal.innerHTML += `
-                    <tr>
+                    <tr id="linha_email${dados[i].idEmail}>
                         <th>${dados[i].idEmail}</th>
                         <th>${dados[i].email}</th>
                         <th class="text-end"><button class="btn btn-danger btn-sm" type="button" onclick="deletar('email', ${dados[i].idEmail}, ${modal})">Excluir</button></th>
@@ -138,10 +138,10 @@ buttons.createEmail.onclick = async () => {
             success: function (dados){
                 // console.log(dados)
                 modal.innerHTML += `
-                    <tr>
+                    <tr id="linha_email${dados.idEmail}>
                         <th>${dados.idEmail}</th>
                         <th>${dados.email}</th>
-                        <th class="text-end"><button class="btn btn-danger btn-sm" type="button" value="${dados.idEmail}" onclick="deletar('email', ${dados.idEmail}, ${modal})">Excluir</button></th>
+                        <th class="text-end"><button class="btn btn-danger btn-sm" type="button" onclick="deletar('email', ${dados.idEmail}, ${modal})">Excluir</button></th>
                     </tr>
                     `
                 Email = ''
@@ -176,7 +176,7 @@ buttons.readTelefones.onclick = async () => {
                 $(dados).each(function (i){
                     // console.log(dados[i])
                     modal.innerHTML += `
-                    <tr>
+                    <tr id="linha_telefone${dados[i].idTelefone}">
                         <th>${dados[i].idTelefone}</th>
                         <th>${dados[i].telefone}</th>
                         <th class="text-end"><button class="btn btn-danger btn-sm" type="button" onclick="deletar('telefone', ${dados[i].idTelefone}, ${modal})">Excluir</button></th>
@@ -209,10 +209,10 @@ buttons.createTelefone.onclick = async () => {
             success: function (dados){
                 // console.log(dados)
                 modal.innerHTML += `
-                    <tr>
+                    <tr id="linha_telefone${dados.idTelefone}">
                         <th>${dados.idTelefone}</th>
                         <th>${dados.telefone}</th>
-                        <th class="text-end"><button class="btn btn-danger btn-sm" type="button" value="${dados.idTelefone}" onclick="deletar('telefone', ${dados.idTelefone}, ${modal})">Excluir</button></th>
+                        <th class="text-end"><button class="btn btn-danger btn-sm" type="button" onclick="deletar('telefone', ${dados.idTelefone}, ${modal})">Excluir</button></th>
                     </tr>
                     `
                 Telefone = ''
@@ -237,9 +237,9 @@ function deletar(tabela, id, modal){
         success: function (id){ // retorna o ID aqui do item que foi excluido pls
 
             console.log(id)
-            const linha = modal.querySelector(`tr th button.btn-danger[value=${id}]`)
+            const linha = modal.querySelector(`#linha_${tabela}${id}`)
             // linha.style.display = 'none'
-            linha.parentNode.removeChild(linha) // Isso deveria excluir o elemento html, mas se não funcionar, descomenta a linha de cima :)
+            linha.remove() // Isso deveria excluir o elemento html, mas se não funcionar, descomenta a linha de cima :)
 
         }
     })
