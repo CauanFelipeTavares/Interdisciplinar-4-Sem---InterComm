@@ -1,4 +1,4 @@
-public class NotaFiscalData : INotaFiscal
+public class NotaFiscalData : INotaFiscalData
 {
     
 }

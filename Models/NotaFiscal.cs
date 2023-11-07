@@ -2,5 +2,5 @@ public class NotaFiscal
 {
     public int IdNotaFiscal { get; set; }
 
-    public Ordem Ordem { get; set;}
+    public required Ordem Ordem { get; set;}
 }

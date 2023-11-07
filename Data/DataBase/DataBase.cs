@@ -6,7 +6,7 @@ public abstract class Database : IDisposable
 
     public Database()
     {
-        connection = new SqlConnection("Data Source=localhost; Initial Catalog=Intercomm; Integrated Security=True");
+        connection = new SqlConnection("Data Source=localhost; Initial Catalog=Intercomm; Integrated Security=True; TrustServerCertificate=True");
         connection.Open();
     }
 

@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-public class Inicio : Controller
+public class Home : Controller
 {
     public ActionResult Index()
     {

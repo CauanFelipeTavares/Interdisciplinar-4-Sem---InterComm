@@ -1,0 +1,88 @@
+<input name="IdLocal" class="form-control"/>
+<input name="LocalNomeFantasia" class="form-control"/>
+<input name="LocalRazaoSocial" class="form-control"/>
+<input name="CNPJ" class="form-control"/>
+<input name="TipoLocal" class="form-control"/>
+<input name="ANTT" class="form-control"/>
+<input name="IE" class="form-control"/>
+<input name="CEP" class="form-control"/>
+<input name="Logradouro" class="form-control"/>
+<input name="Bairro" class="form-control"/>
+<input name="Cidade" class="form-control"/>
+<input name="Estado" class="form-control"/>
+<input name="Numero" class="form-control"/>
+<input name="Complemento" class="form-control"/>
+<input name="Responsaveis" class="form-control"/>
+<input name="Telefones" class="form-control"/>
+<input name="Emails" class="form-control"/>
+
+UPDATE Locais
+    SET LocalNomeFantasia = @LocalNomeFantasia
+        ,LocalRazaoSocial = @LocalRazaoSocial
+        ,CNPJ = @CNPJ
+        ,TipoLocal = @TipoLocal
+        ,ANTT = @ANTT
+        ,IE = @IE
+        ,CEP = @CEP
+        ,Logradouro = @Logradouro
+        ,Bairro = @Bairro
+        ,Cidade = @Cidade
+        ,Estado = @Estado
+        ,Numero = @Numero
+        ,Complemento = @Complemento
+    WHERE IdLocal @IdLocal
+
+[Display(Name = "Rondônia")]
+,
+[Display(Name = "Acre")]
+,
+[Display(Name = "Amazonas")]
+,
+[Display(Name = "Roraima")]
+,
+[Display(Name = "Pará")]
+,
+[Display(Name = "Amapá")]
+,
+[Display(Name = "Tocantins")]
+,
+[Display(Name = "Maranhão")]
+,
+[Display(Name = "Piauí")]
+,
+[Display(Name = "Ceará")]
+,
+[Display(Name = "Rio Grande do Norte")]
+,
+[Display(Name = "Paraíba")]
+,
+[Display(Name = "Pernambuco")]
+,
+[Display(Name = "Alagoas")]
+,
+[Display(Name = "Sergipe")]
+,
+[Display(Name = "Bahia")]
+,
+[Display(Name = "Minas Gerais")]
+,
+[Display(Name = "Espírito Santo")]
+,
+[Display(Name = "Rio de Janeiro")]
+,
+[Display(Name = "São Paulo")]
+,
+[Display(Name = "Paraná")]
+,
+[Display(Name = "Santa Catarina")]
+,
+[Display(Name = "Rio Grande do Sul")]
+,
+[Display(Name = "Mato Grosso do Sul")]
+,
+[Display(Name = "Mato Grosso")]
+,
+[Display(Name = "Goiás")]
+,
+[Display(Name = "Distrito Federal")]
+,

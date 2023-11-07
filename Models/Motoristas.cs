@@ -1,10 +1,10 @@
 public class Motoristas
 {
-    public int MotoristaId { get; set; }
+    public int IdMotorista { get; set; }
 
-    public string MotoristaNome { get; set; }
+    public required string NomeMotorista { get; set; }
 
-    public string CPF { get; set; }
+    public string? CPF { get; set; }
 
-    public string CNH { get; set; }
+    public required string CNH { get; set; }
 }

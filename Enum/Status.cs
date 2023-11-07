@@ -1,4 +1,5 @@
-public enum Status{
+public enum Status
+{
     Pendente,
     Concluido,
     Cancelado,
