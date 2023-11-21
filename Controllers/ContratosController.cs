@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 public class ContratosController : Controller
 {
@@ -11,26 +12,43 @@ public class ContratosController : Controller
         this.LocaisData = LocaisData;
     }
 
+
+
+    /*
+    ----- INDEX -----
+    */
     public ActionResult Index()
     {
         List<Contratos> lista = ContratosData.Read();
         return View(lista);
     }
-
-    public ActionResult Search(IFormCollection form)
+    //SEARCH
+    public ActionResult Search(IFormCollection FormContratos)
     {
-        string search = form["search"];
+        string search = FormContratos["search"];
 
         List<Contratos> lista = ContratosData.Read(search);
+
+        ViewBag.Search = search;
 
         return View("Index", lista);
     }
 
+
+
+    /*
+    ----- CREATE -----
+    */
     [HttpGet]
     public ActionResult Create() 
     {
-        List<Locais> locais = LocaisData.Read();
-        return View(locais);
+        ViewBag.Locais = LocaisData.Read().Select(c => new SelectListItem()
+            { 
+                Text= c.LocalRazaoSocial, 
+                Value = c.IdLocal.ToString()
+            }).ToList();
+
+        return View();
     }
 
     [HttpPost]
@@ -40,4 +58,45 @@ public class ContratosController : Controller
         return RedirectToAction("Index");
     }
 
+
+
+    /*
+    ----- UPDATE -----
+    */
+    [HttpGet]
+    public ActionResult Update(int IdContrato) 
+    {        
+        // ViewBag.Locais = LocaisData.Read();
+
+        ViewBag.Locais = LocaisData.Read().Select(c => new SelectListItem()
+            { 
+                Text= c.LocalRazaoSocial, 
+                Value = c.IdLocal.ToString()
+            }).ToList();
+
+        Contratos contrato = ContratosData.Read(IdContrato);
+
+        if(contrato == null)
+            return RedirectToAction("Index");
+
+        return View(contrato);
+    }
+
+    [HttpPost]
+    public ActionResult Update(Contratos contratos)
+    {
+        ContratosData.Update(contratos);
+        return RedirectToAction("Index");
+    }
+
+
+
+    /*
+    ----- DELETE -----
+    */
+    public ActionResult Delete(int IdContrato)
+    {
+        ContratosData.Delete(IdContrato);
+        return View("index");
+    }
 }

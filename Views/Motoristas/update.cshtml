@@ -1,3 +1,96 @@
-@{ Layout = "/Views/Shared/Layout.cshtml"; }
+@model Motoristas
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{ 
+    Layout = "/Views/Shared/Layout.cshtml"; 
+    ViewData["Title"] = "Alterar Motorista";
+}
 
-<p><h1>Alterar Motoristas</h1></p>
+<form action="update" method="post">
+<input type="text" name="IdMotorista" id="IdMotorista" value="@Model.IdMotorista" hidden/> @* TRUE ID MOTORISTA *@
+
+    <div class="row">
+
+        <!-- COLUNA 1 -->
+        <div class="col-md-9">
+            <fieldset class="border rounded-3 p-4 mt-1">
+                <legend class="float-none w-auto"><h5>DADOS</h5></legend>
+
+                <!-- ID MOTORISTA -->
+                <div class="row">
+                    <div class="col-md-2">
+                        <input class="form-control" type="text" value="@Model.IdMotorista" disabled/>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- NOME -->
+                    <div class="col-md-5">
+                        <p class="mb-0">Nome Completo</p>
+                        <input type="text" class="form-control" id="NomeMotorista" name="NomeMotorista" value="@Model.NomeMotorista">
+                    </div>
+
+                    <!-- CPF -->    
+                    <div class="col-md-3">
+                        <p class="mb-0">CPF</p>
+                        <input type="text" class="form-control CPF" id="CPF" name="CPF" maxlength="11" value="@Model.CPF">
+                    </div>
+
+                    <!-- CNH -->    
+                    <div class="col-md-3">
+                        <p class="mb-0">CNH</p>
+                        <input type="text" class="form-control CNH" id="CNH" name="CNH" maxlength="10" value="@Model.CNH">
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+
+
+
+        <div class="col">
+            <fieldset class="border rounded-3 p-4 mt-1">
+                <legend class="float-none w-auto"><h5>OPÇÔES</h5></legend>
+                <!-- BOTÂO MODAL ALTERAR-->
+                <div class="row mt-0">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AlterarId">
+                        Salvar
+                    </button>
+                </div>
+
+                <!-- BOTÂO VOLTAR -->
+                <div class="row mt-3">
+                    <button type="button" class="btn btn-secondary" onclick="history.back()">Cancelar</button>
+                </div>
+
+                <!-- BOTÂO EXCLUIR -->
+                <div class="row mt-2">   
+                    <button class="btn btn-danger" type="button">Excluir</button>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+
+    
+    
+    <!-- MODAL ALTERAR -->
+    <div class="modal fade" id="AlterarId" tabindex="-1" role="dialog" aria-labelledby="AlterarTitleId" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                    <div class="modal-header">
+                            <h5 class="modal-title" id="AlterarTitleId">ALTERAR</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        DESEJA REALMENTE ALTERAR O MOTORISTA ATUAL?
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Não</button>
+
+                    <button class="btn btn-primary">Sim</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</form>

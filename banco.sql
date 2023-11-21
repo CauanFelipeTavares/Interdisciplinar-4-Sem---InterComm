@@ -40,10 +40,9 @@ CREATE TABLE Locais_Motoristas (
 )
 
 CREATE TABLE Conjuntos (
-	IdConjunto		int		primary key		identity, -- verificar campos e rela��es depois
+	IdConjunto		int		primary key		identity,
 	CodMotorista	int		foreign key 	references Motoristas(IdMotorista),
-	CodPertence		int,
-	Pertence 		int,
+	TipoConjunto	int 	not null,
 	PlacaA			varchar(7)	not null,
 	PlacaB			varchar(7),
 	PlacaC			varchar(7),
@@ -87,36 +86,16 @@ CREATE TABLE Responsaveis (
 )
 
 CREATE TABLE Telefones (
-	IdResponsavel	int		primary key		identity,
+	IdTelefones		int		primary key		identity,
 	CodLocal		int		foreign key		references	Locais(IdLocal),
 	Telefone		varchar(11)	not null
 )
 
 CREATE TABLE Emails (
-	IdResponsavel	int		primary key		identity,
+	IdEmails	int		primary key		identity,
 	CodLocal		int		foreign key		references	Locais(IdLocal),
 	Email			varchar(60)	not null
 )
 
 
------ Cria��o das Views -----
-
--- CREATE VIEW vwOrdem
--- as
--- 	select 
--- 	M.MotoristaNome, M.CNH, Cont.Status, 
--- 	Cont.Volume, Cont.VolumeAtual, Cont.VolumePendente,
--- 	T.TransportadoraNomeFantasia, T.TransportadoraRazaoSocial,
-	
--- 		from Motorista M, Conjunto Conj, Contrato Cont, Transportadora T, Usuario U
-
-CREATE VIEW vw_Contrato
-as
-	select 
-		Contratos.IdContrato, Contratos.CodCommodity, Contratos.Volume, Contratos.VolumeAtual, Contratos.VolumePendente, Contratos.Status,
-		Locais.Rua, Locais.Bairro, Locais.Cidade, Locais.Estado, Locais.Numero, Locais.Complemento
-	from
-		Contratos
-	inner join Locais ON Contratos.CodLocal = Locais.IdLocal
-
-select * from vwContrato
+----- PROCEDURE -----

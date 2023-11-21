@@ -3,18 +3,18 @@ using System.ComponentModel.DataAnnotations;
 
 public enum Estados
 {
-    [Display(Name = "Rondônia")]
-    RO,
     [Display(Name = "Acre")]
     AC,
     [Display(Name = "Amazonas")]
     AM,
+    [Display(Name = "Amapá")]
+    AP,
+    [Display(Name = "Rondônia")]
+    RO,
     [Display(Name = "Roraima")]
     RR,
     [Display(Name = "Pará")]
     PA,
-    [Display(Name = "Amapá")]
-    AP,
     [Display(Name = "Tocantins")]
     TO,
     [Display(Name = "Maranhão")]

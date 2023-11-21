@@ -2,6 +2,9 @@ using Dapper;
 
 public class LocaisData : Database, ILocaisData
 {
+    /*
+    ----- READ -----
+    */
     public List<Locais> Read()
     {
         string query =  "SELECT * FROM Locais";
@@ -11,11 +14,19 @@ public class LocaisData : Database, ILocaisData
         return lista;
     }
 
-    public List<Locais> Read(String search)
+    public List<Locais> Read(String nome, int local)
     {
-        string query =  "SELECT * FROM Locais WHERE LocalRazaoSocial LIKE @search";
+        string query = "";
+        if (local >= 0)
+        {
+            query =  "SELECT * FROM Locais WHERE LocalRazaoSocial LIKE @nome and TipoLocal = @local";
+        }
+        else
+        {
+            query =  "SELECT * FROM Locais WHERE LocalRazaoSocial LIKE @nome";
+        }
 
-        List<Locais> lista = connection.Query<Locais>(query, new{search = "%" + search + "%"}).AsList();
+        List<Locais> lista = connection.Query<Locais>(query, new{nome = "%" + nome + "%", local}).AsList();
 
         return lista;
     }
@@ -29,8 +40,18 @@ public class LocaisData : Database, ILocaisData
         return lista;
     }
 
+
+
+    /*
+    ----- CREATE -----
+    */
     public void Create(Locais local)
     {
+        if (local.CNPJ != null) local.CNPJ = local.CNPJ.Replace(".", "").Replace("/", "").Replace("-", "");
+        if (local.ANTT != null) local.ANTT = local.ANTT.Replace(".", "").Replace("/", "").Replace("-", "");
+        if (local.IE != null) local.IE = local.IE.Replace(".", "").Replace("/", "").Replace("-", "");
+        if (local.CEP != null) local.CEP = local.CEP.Replace(".", "").Replace("/", "").Replace("-", "");
+
         string query = @"INSERT INTO Locais 
         (LocalNomeFantasia, LocalRazaoSocial, CNPJ, TipoLocal, ANTT, IE, CEP, Logradouro, Bairro, Cidade, Estado, Numero, Complemento)
         VALUES
@@ -39,17 +60,22 @@ public class LocaisData : Database, ILocaisData
         connection.Execute(query, local);
     }
 
+
+
+    /*
+    ----- UPDATE -----
+    */
     public void Update(Locais local)
     {
-        char[] removes = {' ', '.', '/', '\\'};
 
-        local.CNPJ = local.CNPJ.Replace(".", "").Replace("/", "").Replace("-", "");
-        local.IE = local.IE.Replace(".", "").Replace("/", "").Replace("-", "");
-        local.ANTT = local.ANTT.Replace(".", "").Replace("/", "").Replace("-", "");
-        local.CEP = local.CEP.Replace(".", "").Replace("/", "").Replace("-", "");
+        if (local.CNPJ != null) local.CNPJ = local.CNPJ.Replace(".", "").Replace("/", "").Replace("-", "");
+        if (local.ANTT != null) local.ANTT = local.ANTT.Replace(".", "").Replace("/", "").Replace("-", "");
+        if (local.IE != null) local.IE = local.IE.Replace(".", "").Replace("/", "").Replace("-", "");
+        if (local.CEP != null) local.CEP = local.CEP.Replace(".", "").Replace("/", "").Replace("-", "");
 
         string query = @"UPDATE Locais
-                        SET LocalNomeFantasia = @LocalNomeFantasia,
+                        SET 
+                            LocalNomeFantasia = @LocalNomeFantasia,
                             LocalRazaoSocial = @LocalRazaoSocial,
                             CNPJ = @CNPJ,
                             TipoLocal = @TipoLocal,
@@ -62,17 +88,31 @@ public class LocaisData : Database, ILocaisData
                             Estado = @Estado,
                             Numero = @Numero,
                             Complemento = @Complemento
-                        WHERE IdLocal = @IdLocal";
+                        WHERE 
+                            IdLocal = @IdLocal";
 
         connection.Execute(query, local);
     }
 
-    public void Delete(int LocalId)
+
+
+    /*
+    ----- DELETE -----
+    */
+    public void Delete(int IdLocal)
     {
-        
+        string query = @"DELETE FROM Locais WHERE IdLocal = @IdLocal";
+
+        connection.Execute(query, IdLocal);
     }
 
-    public List<Responsaveis> ReadResponaveis(int CodLocal)
+
+
+    /*
+    ----- RESPONSAVEIS -----
+    */
+    //READ
+    public List<Responsaveis> ReadResponsaveis(int CodLocal)
     {
         string query = "SELECT * FROM Responsaveis WHERE CodLocal = @CodLocal";
 
@@ -81,6 +121,7 @@ public class LocaisData : Database, ILocaisData
         return responsaveis;
     }
 
+    //CREATE
     public Responsaveis CreateResponsaveis(Responsaveis responsavel)
     {
         string query = @"
@@ -88,11 +129,105 @@ public class LocaisData : Database, ILocaisData
             EXEC Sp_Insert_Responsaveis @Responsavel, @CodLocal, @IdResponsavel = @IdResponsavell;
             ";
 
-        using (var Teste = connection.QueryMultiple(query, new { responsavel.Responsavel, responsavel.CodLocal})){
-            var Respon = Teste.Read<Responsaveis>().FirstOrDefault();
+        using (var NewResponsavel = connection.QueryMultiple(query, new { responsavel.Responsavel, responsavel.CodLocal})){
+            var Respon = NewResponsavel.Read<Responsaveis>().FirstOrDefault();
             responsavel.IdResponsavel = Respon.IdResponsavel;
         }
 
         return responsavel;
     }   
+
+    //DELETE
+    public int DeleteResponsaveis(int IdResponsavel)
+    {
+        string query = "DELETE FROM Responsaveis WHERE IdResponsavel = @IdResponsavel";
+
+        connection.Execute(query, new {IdResponsavel});
+
+        return IdResponsavel;
+    }
+
+
+
+    /*
+    ----- EMAILS -----
+    */
+    //READ
+    public List<Emails> ReadEmails(int CodLocal)
+    {
+        string query = "SELECT * FROM Emails WHERE CodLocal = @CodLocal";
+
+        List<Emails> emails = connection.Query<Emails>(query, new{ CodLocal }).AsList();
+
+        return emails;
+    }
+
+    //CREATE
+    public Emails CreateEmails(Emails email)
+    {
+        string query = @"
+            DECLARE @IdEmaill INT;
+            EXEC Sp_Insert_Emails @Email, @CodLocal, @IdEmail = @IdEmaill;
+            ";
+
+        using (var NewEmail = connection.QueryMultiple(query, new { email.Email, email.CodLocal})){
+            var Respon = NewEmail.Read<Emails>().FirstOrDefault();
+            email.IdEmail = Respon.IdEmail;
+        }
+
+        return email;
+    }   
+
+    //DELETE
+    public int DeleteEmails(int IdEmail)
+    {
+        string query = "DELETE FROM Emails WHERE IdEmail = @IdEmail";
+
+        connection.Execute(query, new { IdEmail });
+
+        return IdEmail;
+    }
+
+
+
+    /*
+    ----- TELEFONEs -----
+    */
+    //READ
+    public List<Telefones> ReadTelefones(int CodLocal)
+    {   
+        string query = @"SELECT * FROM Telefones WHERE CodLocal = @CodLocal";
+
+        List<Telefones> telefones = connection.Query<Telefones>(query, new{ CodLocal }).AsList();
+
+        return telefones;
+    }
+
+    //CREATE
+    public Telefones CreateTelefones(Telefones telefone)
+    {   
+        telefone.Telefone = telefone.Telefone.Replace(".", "").Replace("/", "").Replace("-", "").Replace("(", "").Replace(")", "");
+
+        string query = @"
+            DECLARE @IdTelefonee INT;
+            EXEC Sp_Insert_Telefones @Telefone, @CodLocal, @IdTelefone = @IdTelefonee;
+            ";
+
+        using (var NewTelefone = connection.QueryMultiple(query, new { telefone.Telefone, telefone.CodLocal})){
+            var Respon = NewTelefone.Read<Emails>().FirstOrDefault();
+            telefone.IdTelefone = Respon.IdEmail;
+        }
+
+        return telefone;
+    }
+
+    //DELETE
+    public int DeleteTelefones(int IdTelefone)
+    {
+        string query = @"DELETE FROM Telefones WHERE IdTelefone = @IdTelefone";
+
+        connection.Execute(query, new{ IdTelefone });
+
+        return IdTelefone;
+    }
 }

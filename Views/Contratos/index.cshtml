@@ -1,21 +1,17 @@
 @model List<Contratos>
+@{ 
+    Layout = "/Views/Shared/Layout.cshtml";
+    ViewData["title"] = "Contratos"; 
+    string search = ViewBag.Search;
+}
 
-@{ Layout = "/Views/Shared/Layout.cshtml"; }
-
-<p><h1>Index Contratos</h1></p>
 
 <div class="container d-flex justify-content-center mb-3 mt-3">
     <form action="/contratos/search" method="POST" class="input-group mt-0">
         <div class="input-group w-75">
-            <input name="search" class="form-control"/>
+            <input name="search" class="form-control" value=""/>
             <button class="btn btn-outline-secondary">Pesquisar</button>
         </div>
-        @* <div class="input-group w-50 mt-2">
-            <span class="input-group-text">Categoria</span>
-            <select class="form-select" asp-for="@teste" asp-items="Html.GetEnumSelectList<TipoLocal>()">
-                <option selected="" value="-1">Todas</option>
-            </select>
-        </div> *@
     </form>
     <a href="/contratos/create"><button class="btn btn-primary">Adicionar</button></a>
 </div>
@@ -47,7 +43,7 @@
             <td>@contrato.Status</td>
             <td>
                 <form action="/contratos/update" method="GET" class="mt-0">
-                    <input type="hidden" name="Id" value="@contrato.IdContrato">
+                    <input type="hidden" name="IdContrato" value="@contrato.IdContrato">
                     <button class="btn btn-primary btn-sm">Editar</button>
                 </form>
             </td>

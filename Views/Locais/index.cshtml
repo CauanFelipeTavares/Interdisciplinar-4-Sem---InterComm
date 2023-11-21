@@ -1,26 +1,28 @@
 @model List<Locais>
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-@{ Layout = "/Views/Shared/Layout.cshtml"; }
 @{ 
+    Layout = "/Views/Shared/Layout.cshtml"; 
     ViewData["title"] = "Locais";
-    Locais teste = new();
+    string search = ViewBag.Search;
+    Locais locais = new();
 }
 
 <div class="container d-flex justify-content-center mb-3 mt-3">
     <form action="/locais/search" method="POST" class="input-group mt-0">
         <div class="input-group w-75">
-            <input name="search" class="form-control"/>
+            <input name="search" class="form-control" value="@search"/>
             <button class="btn btn-outline-secondary">Pesquisar</button>
         </div>
         <div class="input-group w-50 mt-2">
             <span class="input-group-text">Categoria</span>
-            <select class="form-select" asp-for="@teste" asp-items="Html.GetEnumSelectList<TipoLocal>()">
+            <select class="form-control choices-single" asp-for="@locais" asp-items="Html.GetEnumSelectList<TipoLocal>()">
                 <option selected="" value="-1">Todas</option>
             </select>
         </div>
     </form>
     <a href="/locais/create"><button class="btn btn-primary">Adicionar</button></a>
 </div>
+
 <div class="container table-responsive d-flex justify-content-center mt-3">
     <table class="table table-success table-striped">
         <tr>
@@ -29,15 +31,8 @@
             <th>Nome Fantasia</th>
             <th>CNPJ</th>
             <th>Tipo Local</th>
-            @* <th>ANTT</th>
-            <th>IE</th>
-            <th>CEP</th>
-            <th>Logradouro</th>
-            <th>Bairro</th> *@
             <th>Cidade</th>
             <th>Estado</th>
-            @* <th>Numero</th>
-            <th>Complemento</th> *@
             <th>&ensp;</th>
         </tr>
         @foreach (var local in Model)
@@ -48,18 +43,11 @@
                 <td>@local.LocalNomeFantasia</td>
                 <td id="CNPJ" class="CNPJ">@local.CNPJ</td>
                 <td>@local.TipoLocal</td>
-                @* <td>@local.ANTT</td>
-                <td>@local.IE</td>
-                <td>@local.CEP</td>
-                <td>@local.Logradouro</td>
-                <td>@local.Bairro</td> *@
                 <td>@local.Cidade</td>
                 <td>@local.Estado</td>
-                @* <td>@local.Numero</td>
-                <td>@local.Complemento</td> *@
                 <td>
                     <form action="/locais/update" method="GET" class="mt-0">
-                        <input type="hidden" name="Id" value="@local.IdLocal">
+                        <input type="hidden" name="IdLocal" value="@local.IdLocal">
                         <button class="btn btn-primary btn-sm">Editar</button>
                     </form>
                 </td>
@@ -67,3 +55,6 @@
         }
     </table>
 </div>
+<script>
+  new Choices(document.querySelector(".choices-single"));
+</script>

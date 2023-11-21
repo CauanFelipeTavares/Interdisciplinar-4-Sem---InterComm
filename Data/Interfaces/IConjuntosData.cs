@@ -1,4 +1,4 @@
-public interface IConjuntoData
+public interface IConjuntosData
 {
     public List<Conjuntos> Read();
 

@@ -1,8 +1,12 @@
 using Dapper;
+
 public class ContratosData : Database, IContratosData
 {
     private List<Contratos> Contratos = new();
 
+    /*
+    ---- READ ----
+    */
     public List<Contratos> Read()
     {
         string query = @"SELECT * 
@@ -52,25 +56,80 @@ public class ContratosData : Database, IContratosData
             return C;
         },
         splitOn: "IdLocal",
-        param: new {IdContrato}
+        param: new {IdContrato = IdContrato}
         ).First();
 
         return lista;
 
     }
 
+
+
+    /*
+    ---- CREATE ----
+    */
     public void Create(Contratos contrato)
     {
-            
+
+            Console.WriteLine(contrato.DataInicio);
+
+            string query = @"INSERT INTO Contratos
+            (CodLocal, CodCommodity, DataInicio, Volume, ValorUnitario)
+            VALUES
+            (@CodLocal, @CodCommodity, @DataInicio, @Volume, @ValorUnitario)";
+
+            connection.Execute(query, new{
+                CodLocal = contrato.Locais.IdLocal, 
+                CodCommodity = contrato.Commodits,
+                contrato.DataInicio,
+                contrato.Volume,
+                contrato.ValorUnitario
+            });
     }
 
-    public void Delete(int IdContrato)
-    {
 
-    }
 
+    /*
+    ---- UPDATE ----
+    */
     public void Update(Contratos contrato)
     {
-        
+        Console.WriteLine(contrato.ValorUnitario);
+
+        string query = @"UPDATE Contratos
+            SET 
+                CodLocal = @CodLocal,
+                CodCommodity = @CodCommodity,
+                DataInicio = @DataInicio,
+                Volume = @Volume,
+                VolumeAtual = VolumeAtual,
+                VolumePendente = VolumePendente,
+                ValorUnitario = @ValorUnitario,
+                Status = Status
+            WHERE
+                IdContrato = @IdContrato
+        ";
+
+        connection.Execute(query, new{
+            CodLocal = contrato.Locais.IdLocal, 
+            CodCommodity = contrato.Commodits,
+            contrato.DataInicio,
+            contrato.Volume,
+            contrato.ValorUnitario,
+            contrato.IdContrato
+        });
     }
+
+
+
+    /*
+    ---- DELETE ----
+    */
+    public void Delete(int IdContrato)
+    {
+        string query = @"DELETE FROM Contratos WHERE IdContrato = @IdContrato";
+
+        connection.Execute(query, new {IdContrato});
+    }
+    
 }

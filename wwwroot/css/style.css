@@ -10,8 +10,13 @@ h1, h2, h3, h4{
 }
 
 form{
-    width: 60%;
+    width: 80%;
     margin: 10px auto;
+}
+
+p{
+    font-size: small;
+    color: gray;
 }
 
 .navbar{
@@ -37,4 +42,14 @@ form{
 }
 .home td:hover{
     background-color: #afb0b2;
+}
+
+.no-border:read-only {
+    background-color:rgba(0, 0, 0, 0);
+    color: black;
+    border: none;
+    outline:none;
+    height:30px;
+    transition:height 1s;
+    -webkit-transition:height 1s;
 }

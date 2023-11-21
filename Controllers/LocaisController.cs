@@ -10,20 +10,35 @@ public class LocaisController : Controller
         this.LocaisData = LocaisData;
     }
 
+
+
+    /*
+    ----- INDEX -----
+    */
     public ActionResult Index ()
     {
         List<Locais> lista = LocaisData.Read();
         return View(lista);
     }
-
-    public ActionResult Search (IFormCollection form)
+    //SEARCH
+    public ActionResult Search (IFormCollection FormLocais)
     {
-        string search = form["search"];
+        string search = FormLocais["search"];
+        int local = int.Parse(FormLocais["locais"]);
 
-        List<Locais> lista = LocaisData.Read(search);
+        List<Locais> lista = LocaisData.Read(search, local);
+        
+        ViewBag.Search = search;
+        ViewData["search"] = search;
+
         return View("Index", lista);
     }
 
+
+
+    /*
+    ----- CREATE -----
+    */
     [HttpGet]
     public ActionResult Create() 
     {
@@ -37,15 +52,20 @@ public class LocaisController : Controller
         return RedirectToAction("Index");
     }
 
-    [HttpGet]
-    public ActionResult Update(int id)
-    {
-        Locais locais = LocaisData.Read(id);
 
-        if(locais == null)
+
+    /*
+    ----- UPDATE -----
+    */
+    [HttpGet]
+    public ActionResult Update(int IdLocal)
+    {
+        Locais local = LocaisData.Read(IdLocal);
+
+        if(local == null)
             return RedirectToAction("Index");
 
-        return View(locais);
+        return View(local);
     }
 
     [HttpPost]
@@ -55,19 +75,31 @@ public class LocaisController : Controller
         return RedirectToAction("Index");
     }
 
-    public ActionResult Delete(int id) 
+
+
+    /*
+    ----- DELETE -----
+    */
+    public ActionResult Delete(int IdLocal) 
     {
-        LocaisData.Delete(id);
+        LocaisData.Delete(IdLocal);
         return RedirectToAction("Index");
     }
 
+
+
+    /*
+    ----- RESPONSAVEIS -----
+    */
+    //READ
     public JsonResult Responsaveis(int CodLocal)
     {
-        List<Responsaveis> responsaveis = LocaisData.ReadResponaveis(CodLocal);
+        List<Responsaveis> responsaveis = LocaisData.ReadResponsaveis(CodLocal);
 
         return Json(responsaveis);
     }
 
+    //CREATE
     public JsonResult CreateResponsavel(Responsaveis responsaveis)
     {
         Responsaveis newResponsavel = LocaisData.CreateResponsaveis(responsaveis);
@@ -75,8 +107,69 @@ public class LocaisController : Controller
         return Json(newResponsavel);
     }
 
-    public void DeleteResponsavel(int id)
+    //DELETE
+    public JsonResult DeleteResponsavel(int IdResponsavel)
     {
-        
+        int OldIdResponsavel = LocaisData.DeleteResponsaveis(IdResponsavel);
+
+        return Json(OldIdResponsavel);
+    }
+
+
+
+    /*
+    ----- EMAILS -----
+    */
+    //READ
+    public JsonResult Emails(int CodLocal)
+    {
+        List<Emails> emails = LocaisData.ReadEmails(CodLocal);
+
+        return Json(emails);
+    }
+
+    //CREATE
+    public JsonResult CreateEmail(Emails emails)
+    {
+        Emails newEmail = LocaisData.CreateEmails(emails);
+
+        return Json(newEmail);
+    }
+
+    //DELETE
+    public JsonResult DeleteEmail(int IdEmail)
+    {   
+        int OldEmail = LocaisData.DeleteEmails(IdEmail);
+
+        return Json(OldEmail);
+    }
+
+
+
+    /*
+    ----- TELEFONES -----
+    */
+    //READ
+    public JsonResult Telefones(int CodLocal)
+    {
+        List<Telefones> telefones = LocaisData.ReadTelefones(CodLocal);
+
+        return Json(telefones);
+    }
+
+    //CREATE
+    public JsonResult CreateTelefone(Telefones telefones)
+    {
+        Telefones NewTelefone = LocaisData.CreateTelefones(telefones);
+
+        return Json(NewTelefone);
+    }
+
+    //DELETE
+    public JsonResult DeleteTelefone(int IdTelefone)
+    {
+        int OldTelefone = LocaisData.DeleteTelefones(IdTelefone);
+
+        return Json(OldTelefone);
     }
 }

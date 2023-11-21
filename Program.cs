@@ -6,7 +6,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews();
 
 //
-builder.Services.AddTransient<IConjuntoData, ConjuntoData>();
+builder.Services.AddTransient<IConjuntosData, ConjuntosData>();
 builder.Services.AddTransient<IContratosData, ContratosData>();
 builder.Services.AddTransient<ILocaisData, LocaisData>();
 builder.Services.AddTransient<IMotoristasData, MotoristasData>();
