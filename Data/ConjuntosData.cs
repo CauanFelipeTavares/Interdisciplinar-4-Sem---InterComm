@@ -2,7 +2,6 @@ using Dapper;
 
 public class ConjuntosData : Database, IConjuntosData
 {
-    private List<Conjuntos> Conjuntos = new();
 
 
 
@@ -13,7 +12,7 @@ public class ConjuntosData : Database, IConjuntosData
     {
         string query = @"SELECT * 
                             FROM Conjuntos C 
-                            INNER JOIN Motoristas M ON M.IdMotorista = C.CodMotorista";
+                            INNER JOIN Motoristas M ON M.IdMotorista = C.CodMotorista ORDER BY M.NomeMotorista";
 
         List<Conjuntos> lista = connection.Query<Conjuntos, Motoristas, Conjuntos>(query, (C, M) =>
         {
@@ -30,7 +29,7 @@ public class ConjuntosData : Database, IConjuntosData
     {
         string query = @"SELECT * 
                             FROM Conjuntos C 
-                            INNER JOIN Motoristas M ON M.IdMotorista = C.CodMotorista WHERE M.NomeMotorista LIKE @nome";
+                            INNER JOIN Motoristas M ON M.IdMotorista = C.CodMotorista WHERE M.NomeMotorista LIKE @nome ORDER BY M.NomeMotorista";
 
         List<Conjuntos> lista = connection.Query<Conjuntos, Motoristas, Conjuntos>(query, (C, M) =>
         {
@@ -46,7 +45,20 @@ public class ConjuntosData : Database, IConjuntosData
 
     public Conjuntos Read(int IdConjunto)
     {
-        return Conjuntos[0];
+        string query = @"SELECT * 
+                            FROM Conjuntos C 
+                            INNER JOIN Motoristas M ON M.IdMotorista = C.CodMotorista WHERE IdConjunto = @IdConjunto ORDER BY M.NomeMotorista";
+
+        Conjuntos conjunto = connection.Query<Conjuntos, Motoristas, Conjuntos>(query, (C, M) =>
+        {
+            C.Motorista = M;
+            return C;
+        },
+        splitOn: "IdMotorista",
+        param: new {IdConjunto}
+        ).First();
+
+        return conjunto;
     }
 
 
@@ -73,13 +85,57 @@ public class ConjuntosData : Database, IConjuntosData
         });
     }
 
+
+
+    /*
+    ----- UPDATE -----
+    */
+    public void Update(Conjuntos conjunto)
+    {
+        if(conjunto.PlacaA != null) conjunto.PlacaA = conjunto.PlacaA.Replace("-", "");
+        if(conjunto.PlacaB != null) conjunto.PlacaB = conjunto.PlacaB.Replace("-", "");
+        if(conjunto.PlacaC != null) conjunto.PlacaC = conjunto.PlacaC.Replace("-", "");
+
+        string query = @"UPDATE Conjuntos
+                            SET CodMotorista = @CodMotorista,
+                                TipoConjunto = @TipoConjunto,
+                                PlacaA = @PlacaA,
+                                PlacaB = @PlacaB,
+                                PlacaC = @PlacaC
+                            WHERE IdConjunto = @IdConjunto";
+
+        connection.Execute(query, new{
+            CodMotorista = conjunto.Motorista.IdMotorista,
+            conjunto.TipoConjunto,
+            conjunto.PlacaA,
+            conjunto.PlacaB,
+            conjunto.PlacaC,
+            conjunto.IdConjunto
+        });
+    }
+
+
+
+    /*
+    ----- DELETE ------
+    */
     public void Delete(int IdConjunto)
     {
 
     }
 
-    public void Update(Conjuntos conjunto)
+
+
+    /*
+    ----- CONJUNTOS MOTORISTA
+    */
+    //READ
+    public List<Conjuntos> ReadConjuntosMotorista(int IdMotorista)
     {
-        
+        string query = @"SELECT * FROM Conjuntos WHERE CodMotorista = @IdMotorista";
+
+        List<Conjuntos> lista = connection.Query<Conjuntos>(query, new{ IdMotorista }).AsList();
+
+        return lista;
     }
 }

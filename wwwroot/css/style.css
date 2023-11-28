@@ -53,3 +53,9 @@ p{
     transition:height 1s;
     -webkit-transition:height 1s;
 }
+
+.checkbox-lg .form-check-input{
+    top: .8rem;
+    scale: 1.4;
+    margin-right: 0.7rem;
+}

@@ -2,7 +2,8 @@ using Dapper;
 
 public class ContratosData : Database, IContratosData
 {
-    private List<Contratos> Contratos = new();
+
+    
 
     /*
     ---- READ ----
@@ -11,7 +12,7 @@ public class ContratosData : Database, IContratosData
     {
         string query = @"SELECT * 
                             FROM Contratos C 
-                            INNER JOIN Locais L ON L.IdLocal = C.CodLocal";
+                            INNER JOIN Locais L ON L.IdLocal = C.CodLocal ORDER BY Status";
 
         List<Contratos> lista = connection.Query<Contratos, Locais, Contratos>(query, (C, L) =>
         {
@@ -29,7 +30,7 @@ public class ContratosData : Database, IContratosData
 
         string query = @"SELECT * 
                             FROM Contratos C 
-                            INNER JOIN Locais L ON L.IdLocal = C.CodLocal WHERE L.LocalRazaoSocial LIKE @nome";
+                            INNER JOIN Locais L ON L.IdLocal = C.CodLocal WHERE L.LocalRazaoSocial LIKE @nome ORDER BY Status";
 
         List<Contratos> lista = connection.Query<Contratos, Locais, Contratos>(query, (C, L) =>
         {
@@ -63,6 +64,37 @@ public class ContratosData : Database, IContratosData
 
     }
 
+    public List<Contratos> ReadContratos(int IdLocal, int cancel = 0)
+    {
+        string query = "";
+
+        if(cancel == 0)
+        {
+            query = @"SELECT * 
+                            FROM Contratos C 
+                            INNER JOIN Locais L ON L.IdLocal = C.CodLocal WHERE CodLocal = @IdLocal AND Status = @Andamento";
+        }
+        else if(cancel == 1)
+        {
+            query = @"SELECT * 
+                            FROM Contratos C 
+                            INNER JOIN Locais L ON L.IdLocal = C.CodLocal WHERE CodLocal = @IdLocal";
+        }
+
+        List<Contratos> lista = connection.Query<Contratos, Locais, Contratos>(query, (C, L) =>
+        {
+            C.Locais = L;
+            return C;
+        },
+        splitOn: "IdLocal",
+        param: new {
+            IdLocal = IdLocal,
+            Andamento = Status.Andamento}
+        ).AsList();
+
+        return lista;
+    }
+
 
 
     /*
@@ -94,21 +126,18 @@ public class ContratosData : Database, IContratosData
     */
     public void Update(Contratos contrato)
     {
-        Console.WriteLine(contrato.ValorUnitario);
-
         string query = @"UPDATE Contratos
-            SET 
-                CodLocal = @CodLocal,
-                CodCommodity = @CodCommodity,
-                DataInicio = @DataInicio,
-                Volume = @Volume,
-                VolumeAtual = VolumeAtual,
-                VolumePendente = VolumePendente,
-                ValorUnitario = @ValorUnitario,
-                Status = Status
-            WHERE
-                IdContrato = @IdContrato
-        ";
+                            SET 
+                                CodLocal = @CodLocal,
+                                CodCommodity = @CodCommodity,
+                                DataInicio = @DataInicio,
+                                Volume = @Volume,
+                                VolumeAtual = VolumeAtual,
+                                VolumePendente = VolumePendente,
+                                ValorUnitario = @ValorUnitario,
+                                Status = @Status
+                            WHERE
+                                IdContrato = @IdContrato";
 
         connection.Execute(query, new{
             CodLocal = contrato.Locais.IdLocal, 
@@ -116,7 +145,8 @@ public class ContratosData : Database, IContratosData
             contrato.DataInicio,
             contrato.Volume,
             contrato.ValorUnitario,
-            contrato.IdContrato
+            contrato.IdContrato,
+            contrato.Status
         });
     }
 

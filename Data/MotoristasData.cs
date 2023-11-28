@@ -2,12 +2,15 @@ using Dapper;
 
 public class MotoristasData : Database, IMotoristasData 
 {
+
+
+    
     /* 
     ---- READ ----
     */
     public List<Motoristas> Read()
     {
-        string query = @"SELECT * FROM Motoristas";
+        string query = @"SELECT * FROM Motoristas ORDER BY NomeMotorista";
 
         List<Motoristas> motoristas = (List<Motoristas>)connection.Query<Motoristas>(query);
 
@@ -16,7 +19,7 @@ public class MotoristasData : Database, IMotoristasData
 
     public List<Motoristas> Read(String nome)
     {
-        string query = @"SELECT * FROM Motoristas WHERE NomeMotorista LIKE @nome";
+        string query = @"SELECT * FROM Motoristas WHERE NomeMotorista LIKE @nome ORDER BY NomeMotorista";
 
         List<Motoristas> motoristas = connection.Query<Motoristas>(query, new{nome = "%" + nome + "%"}).ToList();
 
@@ -25,7 +28,7 @@ public class MotoristasData : Database, IMotoristasData
 
     public Motoristas Read(int IdMotorista)
     {
-        string query = @"SELECT * FROM Motoristas WHERE IdMotorista = @IdMotorista";
+        string query = @"SELECT * FROM Motoristas WHERE IdMotorista = @IdMotorista ORDER BY NomeMotorista";
 
         Motoristas motorista = connection.Query<Motoristas>(query, new{ IdMotorista}).FirstOrDefault();
 
@@ -78,5 +81,22 @@ public class MotoristasData : Database, IMotoristasData
         ";
 
         connection.Execute(query, motorista);
+    }
+
+
+
+    /*
+    ----- MOTORISTAS LOCAL-----
+    */
+    //READ
+    public List<Motoristas> ReadMotoristasLocal(int IdLocal)
+    {
+        string query = @"SELECT * FROM Motoristas M
+                            INNER JOIN Locais_Motoristas LM ON LM.CodLocal = @IdLocal 
+                            AND LM.CodMotorista = M.IdMotorista";
+
+        List<Motoristas> lista = connection.Query<Motoristas>(query, new {IdLocal}).AsList();
+
+        return lista;
     }
 }

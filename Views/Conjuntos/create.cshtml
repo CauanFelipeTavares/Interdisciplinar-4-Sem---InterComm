@@ -2,7 +2,7 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{ 
     Layout = "/Views/Shared/Layout.cshtml";
-    ViewData["title"] = "Adicionar Conjunto"; 
+    ViewData["title"] = "Adicionar Veiculos"; 
 }
 
 <form action="/conjuntos/create" method="post">
@@ -30,7 +30,7 @@
 
                     <!-- TIPO CONJUNTO-->
                     <div class="col-md-3 mt-3">
-                        <p class="mb-0">Tipo Conjunto</p>
+                        <p class="mb-0">Tipo Veiculo</p>
                         <select class="form-control" asp-for="@Model.TipoConjunto" asp-items="Html.GetEnumSelectList<TipoConjunto>()">
                              <option disabled="" value="" selected="" hidden="">Selecione</option>
                         </select>
@@ -44,13 +44,13 @@
 
                     <!-- PLACA B -->
                     <div class="col-md-3 mt-3">
-                        <p class="mb-0">Placa A</p>
+                        <p class="mb-0">Placa B</p>
                         <input class="form-control Placa" type="text" name="PlacaB" id="PlacaB" oninput="this.value = this.value.toUpperCase()">
                     </div>
 
                     <!-- PLACA C -->
                     <div class="col-md-3 mt-3">
-                        <p class="mb-0">Placa A</p>
+                        <p class="mb-0">Placa C</p>
                         <input class="form-control Placa" type="text" name="PlacaC" id="PlacaC" oninput="this.value = this.value.toUpperCase()">
                     </div>
                 </div>
@@ -61,8 +61,15 @@
         <div class="col">
             <fieldset class="border rounded-3 p-4 mt-1">
                 <legend class="float-none w-auto"><h5>OPÇÔES</h5></legend>
+
+                <!-- BOTAO ADICIONAR -->
                 <div class="row">
                     <button class="btn btn-primary">Adicionar</button>
+                </div>
+
+                <!-- BOTÂO VOLTAR -->
+                <div class="row mt-2">
+                    <button class="btn btn-secondary" type="button" onclick="history.back()">Voltar</button>
                 </div>
             </fieldset>
         </div>

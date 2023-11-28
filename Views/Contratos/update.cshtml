@@ -89,39 +89,37 @@
                 </div>
 
                 <div class="row">
+                    <div class="col-md-2">
+                        <p class="mb-0">Status</p>
+                        <select class="form-control" asp-for="Status" asp-items="Html.GetEnumSelectList<Status>()">
 
+                        </select>
+                    </div>
                 </div>
             </fieldset>
         </div>
 
+
+
+        <!-- COLUNA 2 -->
         <div class="col">
             <fieldset class="border rounded-3 p-4 mt-1">
                 <legend class="float-none w-auto"><h5>OPÇÔES</h5></legend>
-                <!-- BOTÂO CANCELAR-->
+                <!-- BOTÂO MODAL SALVAR -->
                 <div class="row">
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AlterarModal">
                         Salvar
                     </button>
                 </div>
 
-                <!-- BOTÂO MODAL SALVAR -->
+                <!-- BOTÂO CANCELAR-->
                 <div class="row mt-2">
                     <button class="btn btn-secondary" type="button" onclick="history.back()">Cancelar</button>
                 </div>
 
-                <!-- BOTÂO EXCLUIR - FAZ NADA - FUTURO BOTÂO MODAL EXLUIR -->
-                <div class="row mt-2">   
-                    <button class="btn btn-danger" type="button">Excluir</button>
-                </div>
             </fieldset>
         </div>
     </div>
-
-
-    <div class="d-flex justify-content-between">
-    </div>
-    
-
 
     <!-- MODAL ALTERAR -->
     <div class="modal fade" id="AlterarModal" tabindex="-1" role="dialog" aria-labelledby="AlterarTitleModal" aria-hidden="true">
@@ -133,7 +131,7 @@
                         </div>
                 <div class="modal-body">
                     <div class="container-fluid">
-                        DESEJA ALTERAR AS INFORMAÇÕES DO CONTRATO ATUAL?
+                        DESEJA ALTERAR AS INFORMAÇÕES DO CONJUNTO ATUAL?
                     </div>
                 </div>
                 <div class="modal-footer d-flex justify-content-between">

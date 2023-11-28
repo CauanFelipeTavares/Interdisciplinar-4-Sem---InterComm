@@ -10,8 +10,6 @@ public class Locais
 
     public TipoLocal TipoLocal { get; set; }
 
-    public string? ANTT { get; set; }
-
     public string? IE { get; set; }
 
     public string? CEP { get; set; }

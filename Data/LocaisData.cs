@@ -2,6 +2,9 @@ using Dapper;
 
 public class LocaisData : Database, ILocaisData
 {
+
+
+    
     /*
     ----- READ -----
     */
@@ -14,19 +17,19 @@ public class LocaisData : Database, ILocaisData
         return lista;
     }
 
-    public List<Locais> Read(String nome, int local)
+    public List<Locais> Read(string nome, int TipoLocal)
     {
         string query = "";
-        if (local >= 0)
+        if (TipoLocal >= 0)
         {
-            query =  "SELECT * FROM Locais WHERE LocalRazaoSocial LIKE @nome and TipoLocal = @local";
+            query =  "SELECT * FROM Locais WHERE LocalRazaoSocial LIKE @nome and TipoLocal = @TipoLocal ORDER BY LocalRazaoSocial";
         }
         else
         {
-            query =  "SELECT * FROM Locais WHERE LocalRazaoSocial LIKE @nome";
+            query =  "SELECT * FROM Locais WHERE LocalRazaoSocial LIKE @nome ORDER BY LocalRazaoSocial";
         }
 
-        List<Locais> lista = connection.Query<Locais>(query, new{nome = "%" + nome + "%", local}).AsList();
+        List<Locais> lista = connection.Query<Locais>(query, new{nome = "%" + nome + "%", TipoLocal }).AsList();
 
         return lista;
     }
@@ -40,6 +43,28 @@ public class LocaisData : Database, ILocaisData
         return lista;
     }
 
+    public List<Locais> ReadDestino()
+    {
+        string query = @"SELECT * FROM Locais WHERE TipoLocal = @Posto or TipoLocal = @Base ORDER BY LocalRazaoSocial";
+
+        List<Locais> lista = connection.Query<Locais>(query, 
+        new{
+            TipoLocal.Posto,
+            TipoLocal.Base
+        }).AsList();
+
+        return lista;
+    }
+
+    public List<Locais> ReadLocaisContrato()
+    {
+        string query = @"SELECT * FROM Locais WHERE TipoLocal = @Usina or TipoLocal = @Base ORDER BY LocalRazaoSocial";
+
+        List<Locais> lista = connection.Query<Locais>(query, new{TipoLocal.Usina, TipoLocal.Base}).AsList();
+
+        return lista;
+    }
+
 
 
     /*
@@ -48,14 +73,13 @@ public class LocaisData : Database, ILocaisData
     public void Create(Locais local)
     {
         if (local.CNPJ != null) local.CNPJ = local.CNPJ.Replace(".", "").Replace("/", "").Replace("-", "");
-        if (local.ANTT != null) local.ANTT = local.ANTT.Replace(".", "").Replace("/", "").Replace("-", "");
         if (local.IE != null) local.IE = local.IE.Replace(".", "").Replace("/", "").Replace("-", "");
         if (local.CEP != null) local.CEP = local.CEP.Replace(".", "").Replace("/", "").Replace("-", "");
 
         string query = @"INSERT INTO Locais 
-        (LocalNomeFantasia, LocalRazaoSocial, CNPJ, TipoLocal, ANTT, IE, CEP, Logradouro, Bairro, Cidade, Estado, Numero, Complemento)
+        (LocalNomeFantasia, LocalRazaoSocial, CNPJ, TipoLocal, IE, CEP, Logradouro, Bairro, Cidade, Estado, Numero, Complemento)
         VALUES
-        (@LocalNomeFantasia, @LocalRazaoSocial, @CNPJ, @TipoLocal, @ANTT, @IE, @CEP, @Logradouro, @Bairro, @Cidade, @Estado, @Numero, @Complemento)";
+        (@LocalNomeFantasia, @LocalRazaoSocial, @CNPJ, @TipoLocal, @IE, @CEP, @Logradouro, @Bairro, @Cidade, @Estado, @Numero, @Complemento)";
 
         connection.Execute(query, local);
     }
@@ -69,7 +93,6 @@ public class LocaisData : Database, ILocaisData
     {
 
         if (local.CNPJ != null) local.CNPJ = local.CNPJ.Replace(".", "").Replace("/", "").Replace("-", "");
-        if (local.ANTT != null) local.ANTT = local.ANTT.Replace(".", "").Replace("/", "").Replace("-", "");
         if (local.IE != null) local.IE = local.IE.Replace(".", "").Replace("/", "").Replace("-", "");
         if (local.CEP != null) local.CEP = local.CEP.Replace(".", "").Replace("/", "").Replace("-", "");
 
@@ -79,7 +102,6 @@ public class LocaisData : Database, ILocaisData
                             LocalRazaoSocial = @LocalRazaoSocial,
                             CNPJ = @CNPJ,
                             TipoLocal = @TipoLocal,
-                            ANTT = @ANTT,
                             IE = @IE,
                             CEP = @CEP,
                             Logradouro = @Logradouro,
@@ -114,7 +136,7 @@ public class LocaisData : Database, ILocaisData
     //READ
     public List<Responsaveis> ReadResponsaveis(int CodLocal)
     {
-        string query = "SELECT * FROM Responsaveis WHERE CodLocal = @CodLocal";
+        string query = "SELECT * FROM Responsaveis WHERE CodLocal = @CodLocal ORDER BY Responsavel";
 
         List<Responsaveis> responsaveis = connection.Query<Responsaveis>(query, new{ CodLocal }).AsList();
 
@@ -155,7 +177,7 @@ public class LocaisData : Database, ILocaisData
     //READ
     public List<Emails> ReadEmails(int CodLocal)
     {
-        string query = "SELECT * FROM Emails WHERE CodLocal = @CodLocal";
+        string query = "SELECT * FROM Emails WHERE CodLocal = @CodLocal ORDER BY Email";
 
         List<Emails> emails = connection.Query<Emails>(query, new{ CodLocal }).AsList();
 
@@ -229,5 +251,38 @@ public class LocaisData : Database, ILocaisData
         connection.Execute(query, new{ IdTelefone });
 
         return IdTelefone;
+    }
+
+
+
+    /*
+    ----- MOTORISTA TRANSPORTADORAS -----
+    */
+    //READ
+    public List<Locais> ReadLocaisMotorista(int IdMotorista)
+    {
+        string query = @"SELECT * FROM Locais L
+                            INNER JOIN Locais_Motoristas LM ON LM.CodMotorista = @IdMotorista
+                            AND LM.CodLocal = L.IdLocal";
+
+        List<Locais> lista = connection.Query<Locais>(query, new{ IdMotorista}).AsList();
+
+        return lista;
+    }
+
+    //CREATE
+    public void CreateLocaisMotorista(int IdMotorista, int IdTranspor)
+    {
+        string query = @"INSERT INTO Locais_Motoristas VALUES(@IdMotorista, @IdTranspor)";
+
+        connection.Execute(query, new {IdMotorista, IdTranspor});
+    }
+
+    //DELETE
+    public void DeleteLocaisMotorista(int IdMotorista, int IdTranspor)
+    {
+        string query = @"DELETE FROM Locais_Motoristas WHERE CodMotorista = @IdMotorista AND CodLocal = @IdTranspor";
+
+        connection.Execute(query, new { IdMotorista, IdTranspor});
     }
 }

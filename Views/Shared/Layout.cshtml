@@ -7,6 +7,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <script src="/script/script.js"></script>
+
     <!-- BootStrap e Jquery-->
     @*CSS E SCRIPT DO BOOTSTRAP 5*@
     <link rel="stylesheet" href="/lib/bootstrap5/css/bootstrap.min.css">
@@ -20,8 +22,13 @@
 
     @*BIBLIOTECA JQUERY PARA APLICAR MASCARAS*@
     <script src="/lib/jquery/jquery.mask.js"></script>
-    @*MASCARAS PARA CNPJ IE ANTT CEP*@
+    @*MASCARAS*@
     <script src="/script/mask.js"></script>
+
+    @*CHOICES*@
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js@9.0.1/public/assets/styles/choices.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/choices.js@9.0.1/public/assets/scripts/choices.min.js"></script>
+
 
 </head>
 
@@ -65,7 +72,7 @@
                     <li class="nav-item">
                         @if (true)
                         {
-                            <a class="nav-link active" href="#">
+                            <a class="nav-link active" href="" >
                                 <img src="/src/img/logout.png" alt="SAIR" height="50px">
                             </a>
                         }

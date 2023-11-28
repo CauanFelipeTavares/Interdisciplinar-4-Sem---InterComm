@@ -55,4 +55,50 @@ public class ConjuntosController : Controller
 
         return RedirectToAction("Index");
     }
+
+
+
+    /*
+    ----- UPDATE -----
+    */
+    [HttpGet]
+    public ActionResult Update(int IdConjunto)
+    {
+        ViewBag.Motoristas = MotoristasData.Read().Select(c => new SelectListItem()
+            {
+                Text = c.NomeMotorista,
+                Value = c.IdMotorista.ToString()
+            }).ToList();
+
+        Conjuntos conjunto = ConjuntosData.Read(IdConjunto);
+
+        return View(conjunto);
+    }
+    [HttpPost]
+    public ActionResult Update(Conjuntos conjuntos)
+    {
+        ConjuntosData.Update(conjuntos);
+
+        return RedirectToAction("index");
+    }
+
+
+
+    /*
+    ----- CONJUNTOS MOTORISTA -----
+    */
+    //READ
+    public JsonResult ReadConjuntosMotorista(int IdMotorista)
+    {
+        List<Conjuntos> conjuntos = ConjuntosData.ReadConjuntosMotorista(IdMotorista);
+
+        return Json(conjuntos);
+    }
+
+    public JsonResult ReadConjunto(int IdConjunto)
+    {
+        Conjuntos conjunto = ConjuntosData.Read(IdConjunto);
+
+        return Json(conjunto);
+    }
 }

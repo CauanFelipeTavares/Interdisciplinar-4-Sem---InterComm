@@ -1,12 +1,15 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 public class MotoristasController : Controller
 {
     private IMotoristasData MotoristasData;
+    private ILocaisData LocaisData;
 
-    public MotoristasController (IMotoristasData MotoristasData)
+    public MotoristasController (IMotoristasData MotoristasData, ILocaisData LocaisData)
     {
         this.MotoristasData = MotoristasData;
+        this.LocaisData = LocaisData;
     }
 
     /*
@@ -55,6 +58,12 @@ public class MotoristasController : Controller
     [HttpGet]
     public ActionResult Update(int IdMotorista)
     {
+        ViewBag.Transportadoras = LocaisData.Read("", (int) TipoLocal.Transportadora).Select(c => new SelectListItem()
+            { 
+                Text= c.IdLocal + " - " + c.LocalRazaoSocial, 
+                Value = c.IdLocal.ToString()
+            }).ToList();
+
         Motoristas motorista = MotoristasData.Read(IdMotorista);
 
         return View(motorista);
@@ -67,5 +76,25 @@ public class MotoristasController : Controller
        return RedirectToAction("Index");
     }
 
-    
+
+
+    /*
+    ----- LOCAIS_MOTORISTAS -----
+    */
+    //READ MOTORISTAS LOCAL
+    public JsonResult ReadMotoristasLocal(int IdLocal)
+    {
+        List<Motoristas> motoristas = MotoristasData.ReadMotoristasLocal(IdLocal);
+
+        return Json(motoristas);
+    }
+
+    [HttpGet]
+    //READ MOTORISTAS
+    public JsonResult ReadMotoristas()
+    {   
+        List<Motoristas> motoristas = MotoristasData.Read();
+
+        return Json(motoristas);
+    }
 }

@@ -42,7 +42,7 @@ public class ContratosController : Controller
     [HttpGet]
     public ActionResult Create() 
     {
-        ViewBag.Locais = LocaisData.Read().Select(c => new SelectListItem()
+        ViewBag.Locais = LocaisData.ReadLocaisContrato().Select(c => new SelectListItem()
             { 
                 Text= c.LocalRazaoSocial, 
                 Value = c.IdLocal.ToString()
@@ -65,9 +65,7 @@ public class ContratosController : Controller
     */
     [HttpGet]
     public ActionResult Update(int IdContrato) 
-    {        
-        // ViewBag.Locais = LocaisData.Read();
-
+    {      
         ViewBag.Locais = LocaisData.Read().Select(c => new SelectListItem()
             { 
                 Text= c.LocalRazaoSocial, 
@@ -98,5 +96,15 @@ public class ContratosController : Controller
     {
         ContratosData.Delete(IdContrato);
         return View("index");
+    }
+
+    /*
+    ----- ORDEM -----
+    */
+    public JsonResult LocaisContratos(int IdLocal)
+    {
+        List<Contratos> lista = ContratosData.ReadContratos(IdLocal);
+
+        return Json(lista);
     }
 }

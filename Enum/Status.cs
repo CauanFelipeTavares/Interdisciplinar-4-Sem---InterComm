@@ -1,7 +1,16 @@
+using System.ComponentModel.DataAnnotations;
+
 public enum Status
 {
+    [Display(Name = "Pendente")]
     Pendente,
+
+    [Display(Name = "Andamento")]
+    Andamento,
+
+    [Display(Name = "Concluido")]
     Concluido,
-    Cancelado,
-    Ativo
+
+    [Display(Name = "Cancelado")]
+    Cancelado
 }

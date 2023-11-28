@@ -16,7 +16,6 @@ CREATE TABLE Locais (
 	LocalRazaoSocial	varchar(60)		not null,
 	CNPJ				varchar(14)		not null, -- conferir quantos caracteres depois
 	TipoLocal			int				not null,
-	ANTT				varchar(30),	
 	IE					varchar(30),
 	CEP					varchar(8),
 	Logradouro			varchar(30)		not null,
@@ -61,13 +60,17 @@ CREATE TABLE Contratos (
 )
 
 CREATE TABLE OrdensDeCarregamento (
-	IdOrdem				int		primary key		identity,
-	CodMotorista		int		foreign key references Motoristas(IdMotorista) not null,
-	CodConjunto			int		foreign key references Conjuntos(IdConjunto) not null,
-	CodContrato			int		foreign key references Contratos(IdContrato) not null,
-	CodTransportadora	int		foreign key references Locais(IdLocal) not null,
-	CodDestino			int 	foreign key references Locais(IdLocal)	not null,
-	Status				int		default 0,
+	IdOrdem				int			primary key		identity,
+	CodContrato			int			foreign key references Contratos(IdContrato) not null,
+	CodDestino			int 		foreign key references Locais(IdLocal)	not null,
+	CodTransportadora	int			foreign key references Locais(IdLocal) not null,
+	CodMotorista		int			foreign key references Motoristas(IdMotorista) not null,
+	TipoConjunto		int 		not null,
+	PlacaA				varchar(7)	not null,
+	PlacaB				varchar(7),
+	PlacaC				varchar(7),
+	Volume				float 		not null,
+	Status				int			default 0,
 )
 
 CREATE TABLE NotaFiscal (

@@ -2,9 +2,14 @@ public interface ILocaisData
 {
     public List<Locais> Read();
 
-    public List<Locais> Read(String nome, int local);
+    public List<Locais> Read(string nome, int TipoLocal);
 
     public Locais Read(int LocalId);
+
+    public List<Locais> ReadDestino();
+
+    public List<Locais> ReadLocaisContrato();
+
 
     public void Create(Locais local);
 
@@ -38,4 +43,11 @@ public interface ILocaisData
     public Telefones CreateTelefones(Telefones Telefone);
 
     public int DeleteTelefones(int IdTelefone);
+
+
+
+    //LOCAIS MOTORISTA
+    public List<Locais> ReadLocaisMotorista(int IdMotorista);
+    public void CreateLocaisMotorista(int IdMotorista, int IdTranspor);
+    public void DeleteLocaisMotorista(int IdMotorista, int IdTranspor);
 }

@@ -172,4 +172,34 @@ public class LocaisController : Controller
 
         return Json(OldTelefone);
     }
+
+
+
+    /*
+    ----- MOTORISTA TRANSPORTADORAS -----
+    */
+    //READ
+    public JsonResult ReadLocaisMotorista (int IdMotorista)
+    {
+        List<Locais> locais = LocaisData.ReadLocaisMotorista(IdMotorista);
+    
+        return Json(locais);
+    }
+
+    //CREATE
+    public JsonResult CreateLocaisMotorista (int IdMotorista, int IdLocal)
+    {
+        LocaisData.CreateLocaisMotorista(IdMotorista, IdLocal);
+
+        return Json("Success");
+    }
+
+    //DELETE
+    public JsonResult DeleteLocaisMotorista (int IdMotorista, int IdLocal)
+    {
+        LocaisData.DeleteLocaisMotorista(IdMotorista, IdLocal);
+
+        return Json("Success");
+    }
+
 }

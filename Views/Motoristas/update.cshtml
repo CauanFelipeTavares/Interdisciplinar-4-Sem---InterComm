@@ -3,6 +3,7 @@
 @{ 
     Layout = "/Views/Shared/Layout.cshtml"; 
     ViewData["Title"] = "Alterar Motorista";
+    Locais Local = new();
 }
 
 <form action="update" method="post">
@@ -46,9 +47,22 @@
 
 
 
+        <!-- COLUNA 2 -->
         <div class="col">
             <fieldset class="border rounded-3 p-4 mt-1">
+                <legend class="float-none w-auto"><h5>TRANSPORTADORAS</h5></legend>
+
+                <!-- BOTAO MODAL TRANSPORTADORAS -->
+                <div class="row mt-0">
+                    <button id="BotaoTransportadoras" name="BotaoTransportadoras" type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalTrasnporId">
+                        Transportadoras
+                    </button>
+                </div>
+            </fieldset>
+
+            <fieldset class="border rounded-3 p-4 mt-1">
                 <legend class="float-none w-auto"><h5>OPÇÔES</h5></legend>
+
                 <!-- BOTÂO MODAL ALTERAR-->
                 <div class="row mt-0">
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AlterarId">
@@ -57,13 +71,13 @@
                 </div>
 
                 <!-- BOTÂO VOLTAR -->
-                <div class="row mt-3">
+                <div class="row mt-2">
                     <button type="button" class="btn btn-secondary" onclick="history.back()">Cancelar</button>
                 </div>
 
                 <!-- BOTÂO EXCLUIR -->
                 <div class="row mt-2">   
-                    <button class="btn btn-danger" type="button">Excluir</button>
+                    @* <button class="btn btn-danger" type="button">Excluir</button> *@
                 </div>
             </fieldset>
         </div>
@@ -93,4 +107,36 @@
         </div>
     </div>
     
+    <!-- MODAL TRANSPORTADORAS -->
+    <div class="modal fade" id="modalTrasnporId" tabindex="-1" role="dialog" aria-labelledby="modalTransporTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalTransporTitle">TRANSPORTADORAS</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                <div class="modal-body">
+                    <table class="table table-success table-striped">
+                    </table>
+                    <div class="row">
+                        <div class="col-md-9">
+                            <select class="form-control locais" asp-for="@Local.IdLocal" asp-items="@ViewBag.Transportadoras">
+                                <option disabled="" value="" selected="" hidden="">Selecione</option>
+                            </select>
+                        </div>
+                        <div class="col mt-1">
+                            <button class="btn btn-primary" type="button" id="ButtonAddTrasnpor" disabled>Adicionar</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">FECHAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </form>
+<script src="/script/motoristas.js"></script>
+<script>
+    const locais = new Choices(document.querySelector(".locais"));
+</script>

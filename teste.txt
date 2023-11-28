@@ -1,8 +1,8 @@
 USE InterComm
 GO
 
-INSERT INTO Conjuntos
-           (CodMotorista, TipoConjunto, PlacaA, PlacaB, PlacaC)
+INSERT INTO OrdensDeCarregamento
+           (CodContrato, CodDestino, CodTransportadora, CodMotorista, TipoConjunto, PlacaA, PlacaB, PlacaC, Volume, Status)
      VALUES
-           (@Motorista.IdMotorista, @TipoConjunto, @PlacaA, @PlacaB, @PlacaC)
+           (@CodContrato, @CodDestino, @CodTransportadora, @CodMotorista, @TipoConjunto, @PlacaA, @PlacaB, @PlacaC, @Volume, 0)
 GO

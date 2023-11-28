@@ -17,6 +17,8 @@ public class Ordem
     public string? PlacaB { get; set; }
 
     public string? PlacaC { get; set; }
+    
+    public double? Volume { get; set; }
 
     public Status Status { get; set; }
 }

@@ -11,4 +11,8 @@ public interface IConjuntosData
     public void Update(Conjuntos local);
     
     public void Delete(int LocalId);
+
+
+    //READ CONJUNTOS MOTORISTA
+    public List<Conjuntos> ReadConjuntosMotorista(int IdMotorista);
 }

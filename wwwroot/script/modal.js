@@ -1,3 +1,4 @@
+
 const CodLocal = document.querySelector('#IdLocal').value
 
 const buttons = {
@@ -184,12 +185,12 @@ buttons.readTelefones.onclick = async () => {
                     modal.innerHTML += `
                     <tr id="linha_telefone${dados[i].idTelefone}">
                         <th>${dados[i].idTelefone}</th>
-                        <th class="TELEFONE"><input type="text" class="no-border Telefone" value="${dados[i].telefone}" readonly="readonly"></th>
+                        <th class="Telefone"><input type="text" class="no-border Telefone" value="${dados[i].telefone}" readonly="readonly"></th>
                         <th class="text-end"><button class="btn btn-danger btn-sm" type="button" onclick="deletar('telefone', ${dados[i].idTelefone}, '${modalhtml}')">Excluir</button></th>
                     </tr>
                     `
                 })
-                
+                $('.Telefone').mask('(99) 99999-9999');
             }
 
         })

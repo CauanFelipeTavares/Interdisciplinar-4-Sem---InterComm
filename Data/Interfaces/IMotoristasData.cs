@@ -11,4 +11,10 @@ public interface IMotoristasData
     public void Delete(int MotoristaId);
 
     public void Update(Motoristas motorista);
+
+    /*
+    ----- MOTORISTAS LOCAL -----
+    */
+    //READ
+    public List<Motoristas> ReadMotoristasLocal(int IdLocal);
 }

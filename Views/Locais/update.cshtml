@@ -17,8 +17,8 @@
             <fieldset class="border rounded-3 p-3 mt-1">
                 <legend class="float-none w-auto mb-0"><h5>DADOS DO LOCAL</h5></legend>
 
+                <!-- ID LOCAL -->
                 <div class="row">
-                    <!-- ID LOCAL -->
                     <div class="col-md-2">
                         <input class="form-control" type="text" value="@Model.IdLocal" disabled/>
                     </div>
@@ -55,11 +55,6 @@
                 </div>
 
                 <div class="row">
-                    <!-- ANTT -->
-                    <div class="col-md-2">
-                        <p class="mb-0 mt-3">ANTT</p>
-                        <input value="@Model.ANTT" type="text" class="form-control" name="ANTT" id="ANTT" placeholder="ANTT" maxlength="8"/>
-                    </div>
 
                     <!-- IE -->
                     <div class="col-md-3">
@@ -124,7 +119,6 @@
                             <select class="form-control" asp-for="Estado" asp-items="Html.GetEnumSelectList<Estados>()">
                                 <option disabled="" value="" selected="" hidden="">Selecione</option>
                             </select>
-                            @* <input type="text" class="form-control" name="Estado" id="Estado" placeholder="UF" /> *@
                         </div>
                     </div>
                     
@@ -139,7 +133,7 @@
             </fieldset>
             <!-- FIM ENDEREÇO -->
         </div>
-        <!-- FIM COLUNA !-->
+        <!-- FIM COLUNA 1 !-->
 
 
 
@@ -186,7 +180,7 @@
 
                 <!-- BOTÂO EXCLUIR - FAZ NADA - FUTURO BOTAO MODAL EXLCUIR -->
                 <div class="row mt-2">   
-                    <button class="btn btn-danger" type="button">Excluir</button>
+                    @* <button class="btn btn-danger" type="button">Excluir</button> *@
                 </div>
             </fieldset>
         </div>
