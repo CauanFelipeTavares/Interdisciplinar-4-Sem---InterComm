@@ -1,4 +1,4 @@
-public enum Commodits
+public enum Commodities
 {
     Etanol,
     Gasolina,

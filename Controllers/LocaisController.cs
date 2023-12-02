@@ -18,6 +18,7 @@ public class LocaisController : Controller
     public ActionResult Index ()
     {
         List<Locais> lista = LocaisData.Read();
+
         return View(lista);
     }
     //SEARCH

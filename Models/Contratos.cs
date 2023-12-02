@@ -4,7 +4,7 @@ public class Contratos
 
     public Locais? Locais { get; set; }
 
-    public Commodits Commodits { get; set; }
+    public Commodities Commodity { get; set; }
 
     public DateTime DataInicio { get; set; }
 

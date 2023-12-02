@@ -2,12 +2,13 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{ 
     Layout = "/Views/Shared/Layout.cshtml"; 
-    ViewData["title"] = "Alterar Ordem";
+    ViewBag.Title = "Alterar Ordem";
 
     Conjuntos conjuntos = new();
 }
 
-<form action="/ordem/create" method="post">
+<form action="/ordem/update" method="post">
+<input class="form-control" type="hidden" name="IdOrdem" id="IdOrdem" hidden value="@Model.IdOrdem">
     <div class="row">
 
         <!-- COLUNA 1 -->
@@ -15,6 +16,13 @@
             <fieldset class="border rounded-3 p-3 mt-1">
                 <legend class="float-none w-auto mb-0"><h5>ORDEM</h5></legend>
                 
+                <!-- ID ORDEM -->
+                <div class="row">
+                    <div class="col-md-3">
+                        <input class="form-control" type="text" name="IdOrdem" id="IdOrdem" disabled value="@Model.IdOrdem">
+                    </div>
+                </div>
+
                 <!-- ROW LOCAL CONTRATO -->
                 <div class="row">
                     
@@ -64,6 +72,11 @@
                         <input class="form-control" id="Volume" name="Volume" type="text" value="@Model.Volume">
                     </div>
 
+                    <!-- STATUS -->
+                    <div class="col-md-3">
+                        <p class="mb-0">Status</p>
+                        <select class="form-control" asp-for="@Model.Status" asp-items="Html.GetEnumSelectList<Status>()"></select>
+                    </div>
                 </div>
             </fieldset>
 
@@ -86,7 +99,7 @@
                     <div class="col-md-1">
                         <p class="mb-0">Mostrar Todos</p>
                         <div class="form-check checkbox-lg ">
-                            <input class="form-check-input checkbox-lg" type="checkbox" name="checkMostrar" id="checkMostrar">
+                            <input class="form-check-input checkbox-lg" type="checkbox" name="checkMostrar" id="checkMostrar" checked>
                         </div>
                     </div>
 
@@ -140,12 +153,12 @@
 
                 <!-- BOTAO ADICIONAR -->
                 <div class="row">
-                    <button class="btn btn-primary">Adicionar</button>
+                    <button class="btn btn-primary">Alterar</button>
                 </div>
 
                 <!-- BOTÂO CANCELAR -->
-                <div class="row mt-2">   
-                    <button class="btn btn-secondary" type="button" onclick="history.back()">Cancelar</button>
+                <div class="row mt-2">
+                    <a href="./" class="btn btn-secondary" role="button">Cancelar</a>
                 </div>
             </fieldset>
         </div>

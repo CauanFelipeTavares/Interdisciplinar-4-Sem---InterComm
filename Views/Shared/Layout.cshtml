@@ -1,13 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
+@{
+    string? title = (ViewBag.Title ?? string.Empty) as string;
+    bool index = (ViewBag.Index ?? false);
+}
 
+<!DOCTYPE html>
+<html lang="pt-br">
 <head>
     <title>InterComm</title>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <script src="/script/script.js"></script>
 
     <!-- BootStrap e Jquery-->
     @*CSS E SCRIPT DO BOOTSTRAP 5*@
@@ -15,7 +17,7 @@
     <script src="/lib/bootstrap5/js/bootstrap.min.js"></script>
 
     @*CSS PADRAO*@
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/styles/css.css">
 
     @*JQUERY*@
     <script src="/lib/jquery/jquery.js"></script>
@@ -26,54 +28,48 @@
     <script src="/script/mask.js"></script>
 
     @*CHOICES*@
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js@9.0.1/public/assets/styles/choices.min.css"/>
-    <script src="https://cdn.jsdelivr.net/npm/choices.js@9.0.1/public/assets/scripts/choices.min.js"></script>
-
+    <link rel="stylesheet" href="/lib/choices/styles/choices.min.css"/>
+    <script src="/lib/choices/scripts/choices.min.js"></script>
 
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
+            
             <a class="navbar-brand" href="/">
                 <h1 class="title-inter text-white">INTER<span class="text-green">COMM</span></h1>
             </a>
+
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
                 <ul class="navbar-nav me-auto">
-                    @* <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="./">Início</a>
-                    </li> *@
-                </ul>
-                @* <ul class="navbar-nav me-auto">
-                    <li class="nav-item mt-3 me-auto">
-                        <h3 class="title-inter text-white">@ViewData["Title"]</h3>
-                    </li> *@
+                    
                 </ul> 
-                <ul class="navbar-nav d-flex justify-content-end">
+
+                <ul class="navbar-nav d-flex justify-content-end align-items-end">
                     <li class="nav-item">
-                        @{
-                            string index = (ViewData["index"] ?? string.Empty) as string;
-                            string title = (ViewData["title"] ?? string.Empty) as string;
-                        }
-                        @if (string.IsNullOrEmpty(index) && !string.IsNullOrEmpty(title))
+                        @if (!string.IsNullOrEmpty(title))
                         {
-                            <h3 class="title-inter text-white mt-3">@ViewData["Title"].ToString().ToUpper()</h3>
-                        }
-                        else if (index == "index")
-                        {
-                            <img src="/src/img/CentralAgil_Banner.png" alt="Central Agil" height="70px">
+                            <h3 class="title-inter text-white">@title.ToUpper()</h3>
                         }
                     </li>
-                    <li class="nav-item">
-                        @if (true)
+                    <li class="nav-item align-items-end">
+                        @if (index == true)
+                        {
+                            <a class="" href="" >
+                                <img src="/src/img/logout.png" height="50px">
+                            </a>
+                        }else
                         {
                             <a class="nav-link active" href="" >
-                                <img src="/src/img/logout.png" alt="SAIR" height="50px">
+                                <img src="" alt="" height="50px">
                             </a>
                         }
                     </li>
@@ -83,5 +79,4 @@
     </nav>
     @RenderBody()
 </body>
-
 </html>

@@ -2,7 +2,7 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{ 
     Layout = "/Views/Shared/Layout.cshtml"; 
-    ViewData["title"] = "Alterar Local"; 
+    ViewBag.Title = "Alterar Local"; 
 }
 
 <form action="/locais/update" method="post">
@@ -42,7 +42,7 @@
                     <!-- CNPJ -->
                     <div class="col-md-3">
                         <p class="mb-0">CNPJ</p>
-                        <input value="@Model.CNPJ" type="text" class="form-control CNPJ" name="CNPJ" id="CNPJ" placeholder="CNPJ" maxlength="14"/>
+                        <input value="@Model.CNPJ" type="text" class="form-control CNPJ" name="CNPJ" id="CNPJ" placeholder="CNPJ" minlength="18"/>
                     </div>           
                 </div>
 
@@ -52,10 +52,7 @@
                         <p class="mb-0 mt-3">Nome Fantasia</p>
                         <input value="@Model.LocalNomeFantasia" type="text" class="form-control" name="LocalNomeFantasia" id="LocalNomeFantasia" placeholder="Nome Fantasia"/>
                     </div>
-                </div>
-
-                <div class="row">
-
+                    
                     <!-- IE -->
                     <div class="col-md-3">
                         <p class="mb-0 mt-3">IE</p>
@@ -175,7 +172,7 @@
 
                 <!-- BOTÂO CANCELAR -->
                 <div class="row mt-2">   
-                    <button class="btn btn-secondary" type="button" onclick="history.back()">Cancelar</button>
+                    <a href="./" class="btn btn-secondary" role="button">Cancelar</a>
                 </div>
 
                 <!-- BOTÂO EXCLUIR - FAZ NADA - FUTURO BOTAO MODAL EXLCUIR -->

@@ -19,12 +19,11 @@ p{
     color: gray;
 }
 
-.navbar{
+.navbar, .header{
     background-color: #4b843c;
     border-bottom: #D6c427 solid 3px;
 }
 .title-inter{
-    margin-left: 30px;
     text-shadow: 0px 6px 4px rgba(0,0,0,0.25);
 }
 .text-white{
@@ -36,7 +35,6 @@ p{
 
 
 .table{
-    /* width: 60%; */
     border-radius: 6px;
     overflow: hidden;
 }
@@ -58,4 +56,13 @@ p{
     top: .8rem;
     scale: 1.4;
     margin-right: 0.7rem;
+}
+
+.choices[data-type*="select-one"] select.choices__input {
+    display: block !important;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    left: 0;
+    bottom: 0;
 }

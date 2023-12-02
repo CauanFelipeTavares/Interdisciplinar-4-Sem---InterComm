@@ -106,13 +106,13 @@ public class ContratosData : Database, IContratosData
             Console.WriteLine(contrato.DataInicio);
 
             string query = @"INSERT INTO Contratos
-            (CodLocal, CodCommodity, DataInicio, Volume, ValorUnitario)
+            (CodLocal, Commodity, DataInicio, Volume, ValorUnitario)
             VALUES
-            (@CodLocal, @CodCommodity, @DataInicio, @Volume, @ValorUnitario)";
+            (@CodLocal, @Commodity, @DataInicio, @Volume, @ValorUnitario)";
 
             connection.Execute(query, new{
                 CodLocal = contrato.Locais.IdLocal, 
-                CodCommodity = contrato.Commodits,
+                contrato.Commodity,
                 contrato.DataInicio,
                 contrato.Volume,
                 contrato.ValorUnitario
@@ -129,7 +129,7 @@ public class ContratosData : Database, IContratosData
         string query = @"UPDATE Contratos
                             SET 
                                 CodLocal = @CodLocal,
-                                CodCommodity = @CodCommodity,
+                                Commodity = @Commodity,
                                 DataInicio = @DataInicio,
                                 Volume = @Volume,
                                 VolumeAtual = VolumeAtual,
@@ -141,7 +141,7 @@ public class ContratosData : Database, IContratosData
 
         connection.Execute(query, new{
             CodLocal = contrato.Locais.IdLocal, 
-            CodCommodity = contrato.Commodits,
+            contrato.Commodity,
             contrato.DataInicio,
             contrato.Volume,
             contrato.ValorUnitario,

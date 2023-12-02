@@ -106,4 +106,11 @@ public class OrdemController : Controller
 
         return View(ordem);
     }
+    [HttpPost]
+    public ActionResult update(Ordem ordem)
+    {
+        OrdemData.Update(ordem);
+
+        return RedirectToAction("index");
+    }
 }

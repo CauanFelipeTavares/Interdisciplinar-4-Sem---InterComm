@@ -2,7 +2,7 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{ 
     Layout = "/Views/Shared/Layout.cshtml"; 
-    ViewData["title"] = "Ordem";
+    ViewBag.Title = "Ordem";
     string search = ViewBag.Search;
 }
 
@@ -35,22 +35,22 @@
         </tr>
         
         @foreach (var ordem in Model)
-        {
+        {   
             <tr>
-                <th>@ordem.IdOrdem</th>
-                <th>@ordem.Contrato.IdContrato</th>
-                <th>@ordem.Contrato.Locais.LocalRazaoSocial</th>
-                <th>@ordem.Destino.LocalRazaoSocial</th>
-                <th>@ordem.Transpor.LocalRazaoSocial</th>
-                <th>@ordem.Motorista.NomeMotorista</th>
-                <th>@ordem.Volume</th>
-                <th>@ordem.Status</th>
-                <th>
+                <td>@ordem.IdOrdem</td>
+                <td>@ordem.Contrato.IdContrato</td>
+                <td>@ordem.Contrato.Locais.LocalRazaoSocial</td>
+                <td>@ordem.Destino.LocalRazaoSocial</td>
+                <td>@ordem.Transpor.LocalRazaoSocial</td>
+                <td>@ordem.Motorista.NomeMotorista</td>
+                <td>@ordem.Volume</td>
+                <td>@ordem.Status</td>
+                <td>
                     <form action="/ordem/update" method="get" class="mt-0">
                         <input type="hidden" name="IdOrdem" value="@ordem.IdOrdem">
                         <button class="btn btn-primary btn-sm" type="submit">Editar</button>
                     </form>
-                </th>
+                </td>
             </tr>
         }
     </table>

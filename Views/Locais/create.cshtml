@@ -2,7 +2,7 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{ 
     Layout = "/Views/Shared/Layout.cshtml"; 
-    ViewData["title"] = "Adicionar Local"; 
+    ViewBag.Title = "Adicionar Local"; 
 }
 
 <form action="/locais/create" method="post">
@@ -34,7 +34,7 @@
                     <!-- CNPJ -->
                     <div class="col-md-3">
                         <p class="mb-0">CPNJ</p>
-                        <input type="text" class="form-control CNPJ" name="CNPJ" id="CNPJ" placeholder="CNPJ" required/>
+                        <input type="text" class="form-control CNPJ" name="CNPJ" id="CNPJ" placeholder="CNPJ" minlength="18" required/>
                     </div>
                 </div>
 
@@ -44,16 +44,14 @@
                         <p class="mb-0 mt-3">Nome Fantasia</p>
                         <input type="text" class="form-control" name="LocalNomeFantasia" id="LocalNomeFantasia" placeholder="Nome Fantasia"/>
                     </div>
-                </div>
-
-                <div class="row">
 
                     <!-- IE -->
                     <div class="col-md-3">
                         <p class="mb-0 mt-3">IE</p>
-                        <input type="text" class="form-control" name="IE" id="IE" placeholder="IE"/>
+                        <input type="text" class="form-control" name="IE" id="IE" placeholder="IE" maxlength="9"/>
                     </div>
                 </div>
+                
                 <!-- FIM ROW INFORMAÇÔES -->
             </fieldset>
 
@@ -137,7 +135,7 @@
 
                 <!-- BOTÂO VOLTAR -->
                 <div class="row mt-2">
-                    <button class="btn btn-secondary" type="button" onclick="history.back()">Voltar</button>
+                    <a href="./" class="btn btn-secondary" role="button">Voltar</a>
                 </div>
             </fieldset>
         </div>

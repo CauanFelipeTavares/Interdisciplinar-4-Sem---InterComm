@@ -2,7 +2,7 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{ 
     Layout = "/Views/Shared/Layout.cshtml";
-    ViewData["title"] = "Alterar Veiculos"; 
+    ViewBag.Title = "Alterar Veiculos"; 
 }
 
 <form action="/conjuntos/update" method="post">
@@ -16,7 +16,7 @@
                 <!-- ID CONJUNTO -->
                 <div class="row">
                     <div class="col-md-2">
-                        <input class="form-control" type="text" value="@Model.IdConjunto" disabled/>
+                        <input class="form-control" type="text" value="@Model.IdConjunto" disabled>
                     </div>
                 </div>
                 
@@ -26,7 +26,7 @@
                     <!-- MOTORISTA -->
                     <div class="col-md-5">
                         <p class="mb-0">Motorista</p>
-                        <select class="form-control" asp-for="@Model.Motorista.IdMotorista" asp-items="ViewBag.Motoristas">
+                        <select class="form-control" asp-for="@Model.Motorista.IdMotorista" asp-items="ViewBag.Motoristas" required>
                              <option disabled="" value="" selected="" hidden="">Selecione</option>
                         </select>
                     </div>
@@ -38,7 +38,7 @@
                     <!-- TIPO CONJUNTO-->
                     <div class="col-md-3 mt-3">
                         <p class="mb-0">Tipo Veiculo</p>
-                        <select class="form-control" asp-for="@Model.TipoConjunto" asp-items="Html.GetEnumSelectList<TipoConjunto>()">
+                        <select class="form-control" asp-for="@Model.TipoConjunto" asp-items="Html.GetEnumSelectList<TipoConjunto>()" required>
                              <option disabled="" value="" selected="" hidden="">Selecione</option>
                         </select>
                     </div>
@@ -46,7 +46,7 @@
                     <!-- PLACA A -->
                     <div class="col-md-3 mt-3">
                         <p class="mb-0">Placa A</p>
-                        <input class="form-control Placa" value="@Model.PlacaA" type="text" name="PlacaA" id="PlacaA" oninput="this.value = this.value.toUpperCase()">
+                        <input class="form-control Placa" value="@Model.PlacaA" type="text" name="PlacaA" id="PlacaA" oninput="this.value = this.value.toUpperCase()" required>
                     </div>
 
                     <!-- PLACA B -->
@@ -77,7 +77,7 @@
 
                 <!-- BOTÂO CANCELAR-->
                 <div class="row mt-2">
-                    <button class="btn btn-secondary" type="button" onclick="history.back()">Cancelar</button>
+                    <a href="./" class="btn btn-secondary" role="button">Cancelar</a>
                 </div>
 
                 <!-- BOTÂO EXCLUIR - FAZ NADA - FUTURO BOTÂO MODAL EXLUIR -->

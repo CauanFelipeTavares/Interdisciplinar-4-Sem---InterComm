@@ -2,7 +2,7 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{ 
     Layout = "/Views/Shared/Layout.cshtml";
-    ViewData["title"] = "Adicionar Veiculos"; 
+    ViewBag.Title = "Adicionar Veiculos"; 
 }
 
 <form action="/conjuntos/create" method="post">
@@ -19,7 +19,7 @@
                     <!-- MOTORISTA -->
                     <div class="col-md-5">
                         <p class="mb-0">Motorista</p>
-                        <select class="form-control" asp-for="@Model.Motorista.IdMotorista" asp-items="ViewBag.Motoristas">
+                        <select class="form-control" asp-for="@Model.Motorista.IdMotorista" asp-items="ViewBag.Motoristas" required>
                              <option disabled="" value="" selected="" hidden="">Selecione</option>
                         </select>
                     </div>
@@ -31,7 +31,7 @@
                     <!-- TIPO CONJUNTO-->
                     <div class="col-md-3 mt-3">
                         <p class="mb-0">Tipo Veiculo</p>
-                        <select class="form-control" asp-for="@Model.TipoConjunto" asp-items="Html.GetEnumSelectList<TipoConjunto>()">
+                        <select class="form-control" asp-for="@Model.TipoConjunto" asp-items="Html.GetEnumSelectList<TipoConjunto>()" required>
                              <option disabled="" value="" selected="" hidden="">Selecione</option>
                         </select>
                     </div>
@@ -39,7 +39,7 @@
                     <!-- PLACA A -->
                     <div class="col-md-3 mt-3">
                         <p class="mb-0">Placa A</p>
-                        <input class="form-control Placa" type="text" name="PlacaA" id="PlacaA" oninput="this.value = this.value.toUpperCase()">
+                        <input class="form-control Placa" type="text" name="PlacaA" id="PlacaA" oninput="this.value = this.value.toUpperCase()" required>
                     </div>
 
                     <!-- PLACA B -->
@@ -69,7 +69,7 @@
 
                 <!-- BOTÂO VOLTAR -->
                 <div class="row mt-2">
-                    <button class="btn btn-secondary" type="button" onclick="history.back()">Voltar</button>
+                    <a href="./" class="btn btn-secondary" role="button">Voltar</a>
                 </div>
             </fieldset>
         </div>

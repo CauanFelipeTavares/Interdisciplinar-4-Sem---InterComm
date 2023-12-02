@@ -12,7 +12,7 @@ public class LocaisData : Database, ILocaisData
     {
         string query =  "SELECT * FROM Locais";
 
-        List<Locais> lista = (List<Locais>)connection.Query<Locais>(query);
+        List<Locais> lista = connection.Query<Locais>(query).AsList();
 
         return lista;
     }

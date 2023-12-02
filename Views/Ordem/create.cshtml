@@ -2,7 +2,7 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{ 
     Layout = "/Views/Shared/Layout.cshtml"; 
-    ViewData["title"] = "Criar Ordem";
+    ViewBag.Title = "Criar Ordem";
 
     Conjuntos conjuntos = new();
 }
@@ -21,7 +21,7 @@
                     <!-- LOCAL -->
                     <div class="col-md-6 mb-3">
                         <p class="mb-0">Saida</p>
-                        <select class="form-control local-contrato" asp-for="@Model.Contrato.Locais.IdLocal" asp-items="ViewBag.Locais">
+                        <select class="form-control local-contrato" asp-for="@Model.Contrato.Locais.IdLocal" asp-items="ViewBag.Locais" required>
                             <option disabled="" value="" selected="" hidden="">Selecione</option>
                         </select>
                     </div>
@@ -29,7 +29,7 @@
                     <!-- CONTRATO -->
                     <div class="col-md-6 mb-3">
                         <p class="mb-0">Contrato</p>
-                        <select class="form-control contrato" asp-for="@Model.Contrato.IdContrato" disabled>
+                        <select class="form-control contrato" asp-for="@Model.Contrato.IdContrato" disabled required>
                             <option disabled="" value="" selected="" hidden="">Selecione</option>
                         </select>
                     </div>
@@ -42,7 +42,7 @@
                     <!-- DESTINO -->
                     <div class="col-md-6 mb-3">
                         <p class="mb-0">Destino</p>
-                        <select class="form-control destino" asp-for="@Model.Destino.IdLocal" asp-items="ViewBag.Destinos">
+                        <select class="form-control destino" asp-for="@Model.Destino.IdLocal" asp-items="ViewBag.Destinos" required>
                             <option disabled="" value="" selected="" hidden="">Selecione</option>
                         </select>
                     </div>
@@ -50,7 +50,7 @@
                     <!-- TRANSPOR -->
                     <div class="col-md-6 mb-3">
                         <p class="mb-0">Transportadora</p>
-                        <select class="form-control transpor" asp-for="@Model.Transpor.IdLocal" asp-items="ViewBag.Transportadoras">
+                        <select class="form-control transpor" asp-for="@Model.Transpor.IdLocal" asp-items="ViewBag.Transportadoras" required>
                             <option disabled="" value="" selected="" hidden="">Selecione</option>
                         </select>
                     </div>
@@ -61,7 +61,7 @@
                     <!-- VOLUME -->
                     <div class="col-md-2">
                         <p class="mb-0">Volume</p>
-                        <input class="form-control" id="Volume" name="Volume" type="text">
+                        <input class="form-control" id="Volume" name="Volume" type="text" required>
                     </div>
 
                 </div>
@@ -77,7 +77,7 @@
                     <!-- MOTORISTA -->
                     <div class="col-md-5">
                         <p class="mb-0">Motorista</p>
-                        <select class="form-control motorista" asp-for="@Model.Motorista.IdMotorista" disabled>
+                        <select class="form-control motorista" asp-for="@Model.Motorista.IdMotorista" disabled required>
                             <option disabled="" value="" selected="" hidden="">Selecione</option>
                         </select>
                     </div>
@@ -114,7 +114,7 @@
                     <!-- PLACA A -->
                     <div class="col-md-2">
                         <p class="mb-0">Placa A</p>
-                        <input class="form-control Placa" value="" type="text" name="PlacaA" id="PlacaA" oninput="this.value = this.value.toUpperCase()">
+                        <input class="form-control Placa" value="" type="text" name="PlacaA" id="PlacaA" oninput="this.value = this.value.toUpperCase()" minlength="8" required>
                     </div>
 
                     <!-- PLACA B -->
@@ -137,8 +137,15 @@
         <div class="col">
             <fieldset class="border rounded-3 p-4 mt-1">
                 <legend class="float-none w-auto"><h5>OPÇÔES</h5></legend>
+
+                <!-- BOTAO ADICIONAR -->
                 <div class="row">
-                    <button class="btn btn-primary">Adicionar</button>
+                    <button type="submit" class="btn btn-primary">Adicionar</button>
+                </div>
+
+                <!-- BOTAO VOLTAR -->
+                <div class="row mt-2">
+                    <a href="./" class="btn btn-secondary" role="button">Voltar</a>
                 </div>
             </fieldset>
         </div>

@@ -18,6 +18,9 @@ const inputPlacas = [document.querySelector("#PlacaA"), document.querySelector("
 const inputTipoConjunto = document.querySelectorAll("#TipoConjunto")
 const tipoConjunto = ["Caminhao", "Conjunto"]
 
+//
+const tipoCommodits = ["Etanol", "Gasolina", "Diesel", "Açucar"]
+
 /*
 ----- SELECT -----
 */
@@ -50,14 +53,16 @@ selectLocalContrato.onchange = async () => {
             url: "/Contratos/LocaisContratos",
             data: {IdLocal: IdLocal},
             success: function (dados){
+                console.log(dados)
                 contrato.clearChoices()
+                contrato.removeActiveItems()
 
                 let options = []
 
                 $(dados).each(function (i){
                     options.push({
                         value: dados[i].idContrato,
-                        label: `${dados[i].idContrato} - ${dados[i].locais.localRazaoSocial} - Volume: ${dados[i].volume/1000} m²`
+                        label: `${dados[i].idContrato} - ${dados[i].locais.localRazaoSocial} - Volume: ${dados[i].volume/1000} m² - ${tipoCommodits[dados[i].commodity]}`
                     })
                 })
 
@@ -165,10 +170,6 @@ function MotoristasTranspor(){
 selectMotorista.onchange = async () => {
     conjunto.removeActiveItems()
 
-    $(inputPlacas).each( function(i){
-        inputPlacas[i].value = "";
-    })
-
     IdMotorista = selectMotorista.value
 
     $(function (){
@@ -179,6 +180,7 @@ selectMotorista.onchange = async () => {
             data: {idMotorista: IdMotorista},
             success: function (dados){
                 conjunto.clearChoices()
+                conjunto.removeActiveItems()
 
                 let options = []
                 let placaA = ""
@@ -207,6 +209,10 @@ selectMotorista.onchange = async () => {
 //ONCHANGE CONJUNTO
 selectConjunto.onchange = async () => {
     IdConjunto = selectConjunto.value
+
+    $(inputPlacas).each( function(i){
+        inputPlacas[i].value = "";
+    })
 
     $(function (){
         $.ajax({

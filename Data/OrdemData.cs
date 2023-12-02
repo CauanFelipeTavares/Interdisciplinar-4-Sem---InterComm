@@ -90,7 +90,9 @@ public class OrdemData : Database, IOrdemData
 
     public void Create(Ordem ordem)
     {
-        Console.WriteLine("\n\n\n Testando:\n" + ordem.Volume + "\n\n\n");
+        if(ordem.PlacaA != null) ordem.PlacaA = ordem.PlacaA.Replace("-", "");
+        if(ordem.PlacaB != null) ordem.PlacaB = ordem.PlacaB.Replace("-", "");
+        if(ordem.PlacaC != null) ordem.PlacaC = ordem.PlacaC.Replace("-", "");
 
         string query = @"INSERT INTO OrdensDeCarregamento
                                 (CodContrato, CodDestino, CodTransportadora, CodMotorista, TipoConjunto, PlacaA, PlacaB, PlacaC, Volume, Status)
@@ -117,6 +119,35 @@ public class OrdemData : Database, IOrdemData
 
     public void Update(Ordem ordem)
     {
+        if(ordem.PlacaA != null) ordem.PlacaA = ordem.PlacaA.Replace("-", "");
+        if(ordem.PlacaB != null) ordem.PlacaB = ordem.PlacaB.Replace("-", "");
+        if(ordem.PlacaC != null) ordem.PlacaC = ordem.PlacaC.Replace("-", "");
+        
+        string query = @"UPDATE OrdensDeCarregamento SET 
+                            CodContrato = @CodContrato,
+                            CodDestino = @CodDestino,
+                            CodTransportadora = @CodTransportadora,
+                            CodMotorista = @CodMotorista,
+                            TipoConjunto = @TipoConjunto,
+                            PlacaA = @PlacaA,
+                            PlacaB = @PlacaB,
+                            PlacaC = @PlacaC,
+                            Volume = @Volume,
+                            Status = @Status
+                        WHERE IdOrdem = @IdOrdem";
 
+        connection.Execute(query, new {
+            CodContrato = @ordem.Contrato.IdContrato,
+            CodDestino = @ordem.Destino.IdLocal,
+            CodTransportadora = @ordem.Transpor.IdLocal,
+            CodMotorista = @ordem.Motorista.IdMotorista,
+            ordem.TipoConjunto,
+            ordem.PlacaA,
+            ordem.PlacaB,
+            ordem.PlacaC,
+            ordem.Volume,
+            ordem.Status,
+            ordem.IdOrdem
+        });
     }
 }

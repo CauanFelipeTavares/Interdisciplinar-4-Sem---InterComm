@@ -30,7 +30,7 @@ CREATE TABLE Motoristas (
 	IdMotorista		int		primary key		identity,
 	NomeMotorista	varchar(60) not null,
 	CPF				varchar(11),
-	CNH				varchar(10) not null,
+	CNH				varchar(11) not null,
 )
 
 CREATE TABLE Locais_Motoristas (
