@@ -10,7 +10,7 @@ public class MotoristasData : Database, IMotoristasData
     */
     public List<Motoristas> Read()
     {
-        string query = @"SELECT * FROM Motoristas ORDER BY NomeMotorista";
+        string query = @"SELECT * FROM Motoristas ORDER BY Ativo ASC, NomeMotorista";
 
         List<Motoristas> motoristas = (List<Motoristas>)connection.Query<Motoristas>(query);
 
@@ -33,6 +33,15 @@ public class MotoristasData : Database, IMotoristasData
         Motoristas motorista = connection.Query<Motoristas>(query, new{ IdMotorista}).FirstOrDefault();
 
         return motorista;
+    }
+
+    public List<Motoristas> ReadAtivo()
+    {
+        string query = @"SELECT * FROM Motoristas WHERE Ativo = @Sim ORDER BY NomeMotorista";
+
+        List<Motoristas> motoristas = (List<Motoristas>)connection.Query<Motoristas>(query, new {Ativo.Sim});
+
+        return motoristas;
     }
 
 
@@ -76,7 +85,8 @@ public class MotoristasData : Database, IMotoristasData
         string query = @" UPDATE Motoristas 
             SET NomeMotorista = @NomeMotorista,
                 CPF = @CPF,
-                CNH = @CNH
+                CNH = @CNH,
+                Ativo = @Ativo
             WHERE IdMotorista = @IdMotorista
         ";
 
@@ -93,9 +103,10 @@ public class MotoristasData : Database, IMotoristasData
     {
         string query = @"SELECT * FROM Motoristas M
                             INNER JOIN Locais_Motoristas LM ON LM.CodLocal = @IdLocal 
-                            AND LM.CodMotorista = M.IdMotorista";
+                            AND LM.CodMotorista = M.IdMotorista
+                            AND Ativo = @Sim";
 
-        List<Motoristas> lista = connection.Query<Motoristas>(query, new {IdLocal}).AsList();
+        List<Motoristas> lista = connection.Query<Motoristas>(query, new {IdLocal, Ativo.Sim}).AsList();
 
         return lista;
     }

@@ -39,10 +39,20 @@
             <th>Estado</th>
             <th>&ensp;</th>
         </tr>
+        @{string classe = "";}
         @foreach (var local in Model)
         {
-            <tr>
+            if (local.Ativo == Ativo.Não)
+            {
+                classe = "desativado";
+            }
+            else
+            {
+                classe = "ativo";
+            }
+            <tr class="@classe">
                 <td>@local.IdLocal</td>
+                @* <td>@Html.DisplayFor(modelItem => local.IdLocal)</td> *@
                 <td>@local.LocalRazaoSocial</td>
                 <td>@local.LocalNomeFantasia</td>
                 <td id="CNPJ" class="CNPJ">@local.CNPJ</td>

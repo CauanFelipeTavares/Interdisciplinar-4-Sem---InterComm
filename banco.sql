@@ -9,6 +9,13 @@ GO
 ----- Criaçãoo das Tabelas -----
 
 -------------------------------------------------------
+CREATE TABLE Users(
+	IdUser			int		primary key		identity,
+	Nome			varchar(32) not null,
+	Login			varchar(32) not null,
+	Password		varchar(32) not null
+)
+
 
 CREATE TABLE Locais (
 	IdLocal				int		primary key		identity,
@@ -24,6 +31,7 @@ CREATE TABLE Locais (
 	Estado				varchar(30)		not null,
 	Numero				int,
 	Complemento			varchar(30),
+	Desativado			int default 0
 )
 
 CREATE TABLE Motoristas (
@@ -31,6 +39,7 @@ CREATE TABLE Motoristas (
 	NomeMotorista	varchar(60) not null,
 	CPF				varchar(11),
 	CNH				varchar(11) not null,
+	Desativado		int default 0
 )
 
 CREATE TABLE Locais_Motoristas (

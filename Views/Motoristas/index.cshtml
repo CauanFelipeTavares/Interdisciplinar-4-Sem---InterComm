@@ -27,9 +27,18 @@
             <th>CNH</th>
             <th>&ensp;</th>
         </tr>
+        @{string classe = "";}
         @foreach (var motorista in Model)
-        {
-            <tr>
+        {   
+            if (motorista.Ativo == Ativo.Não)
+            {
+                classe = "desativado";
+            }
+            else
+            {
+                classe = "ativo";
+            }
+            <tr class="@classe">
                 <td>@motorista.IdMotorista</td>
                 <td>@motorista.NomeMotorista</td>
                 <td id="CPF" class="CPF">@motorista.CPF</td>
@@ -37,7 +46,7 @@
                 <td>
                     <form action="/motoristas/update" method="GET" class="mt-0">
                         <input type="hidden" name="IdMotorista" value="@motorista.IdMotorista">
-                        <button class="btn btn-primary btn-sm">Editar</button>
+                        <button class="btn btn-primary btn-sm @classe">Editar</button>
                     </form>
                 </td>
             </tr>

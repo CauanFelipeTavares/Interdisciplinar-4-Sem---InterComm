@@ -2,7 +2,6 @@ using Dapper;
 
 public class OrdemData : Database, IOrdemData
 {
-    private List<Ordem> Ordem = new();
 
     public List<Ordem> Read()
     {   

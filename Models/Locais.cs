@@ -26,6 +26,8 @@ public class Locais
 
     public string? Complemento { get; set; }
 
+    public Ativo Ativo { get; set; }
+
     public List<Responsaveis>? Responsaveis { get; set; }
 
     public List<Telefones>? Telefones { get; set; }

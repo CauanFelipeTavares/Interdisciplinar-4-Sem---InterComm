@@ -79,7 +79,7 @@ public class OrdemController : Controller
                 Value = c.IdLocal.ToString()
             }).AsList();
 
-        ViewBag.Motoristas = MotoristasData.Read().Select(c => new SelectListItem
+        ViewBag.Motoristas = MotoristasData.ReadAtivo().Select(c => new SelectListItem
             {
                 Text = c.IdMotorista + " - " + c.NomeMotorista,
                 Value = c.IdMotorista.ToString()

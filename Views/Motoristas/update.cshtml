@@ -19,10 +19,19 @@
                 <!-- ID MOTORISTA -->
                 <div class="row">
                     <div class="col-md-2">
+                        <p class="mb-0">ID MOTORISTA</p>
                         <input class="form-control" type="text" value="@Model.IdMotorista" disabled/>
+                    </div>
+
+                    <!-- ATIVO -->
+                    <div class="col-md-2">
+                        <p class="mb-0">Ativo</p>
+                        <select class="form-control" asp-for="@Model.Ativo" asp-items="Html.GetEnumSelectList<Ativo>()">
+                        </select>
                     </div>
                 </div>
 
+                <!-- ROW 1 -->
                 <div class="row">
                     <!-- NOME -->
                     <div class="col-md-5">
@@ -72,7 +81,7 @@
 
                 <!-- BOTÂO VOLTAR -->
                 <div class="row mt-2">
-                    <button type="button" class="btn btn-secondary" onclick="history.back()">Cancelar</button>
+                    <a href="./" class="btn btn-secondary" role="button">Cancelar</a>
                 </div>
 
                 <!-- BOTÂO EXCLUIR -->

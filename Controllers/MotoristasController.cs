@@ -93,7 +93,7 @@ public class MotoristasController : Controller
     //READ MOTORISTAS
     public JsonResult ReadMotoristas()
     {   
-        List<Motoristas> motoristas = MotoristasData.Read();
+        List<Motoristas> motoristas = MotoristasData.ReadAtivo();
 
         return Json(motoristas);
     }

@@ -10,7 +10,7 @@ public class LocaisData : Database, ILocaisData
     */
     public List<Locais> Read()
     {
-        string query =  "SELECT * FROM Locais";
+        string query =  "SELECT * FROM Locais ORDER BY Ativo ASC, LocalRazaoSocial";
 
         List<Locais> lista = connection.Query<Locais>(query).AsList();
 
@@ -45,12 +45,13 @@ public class LocaisData : Database, ILocaisData
 
     public List<Locais> ReadDestino()
     {
-        string query = @"SELECT * FROM Locais WHERE TipoLocal = @Posto or TipoLocal = @Base ORDER BY LocalRazaoSocial";
+        string query = @"SELECT * FROM Locais WHERE (TipoLocal = @Posto OR TipoLocal = @Base) AND Ativo = @Sim ORDER BY LocalRazaoSocial";
 
         List<Locais> lista = connection.Query<Locais>(query, 
         new{
             TipoLocal.Posto,
-            TipoLocal.Base
+            TipoLocal.Base,
+            Ativo.Sim
         }).AsList();
 
         return lista;
@@ -58,9 +59,9 @@ public class LocaisData : Database, ILocaisData
 
     public List<Locais> ReadLocaisContrato()
     {
-        string query = @"SELECT * FROM Locais WHERE TipoLocal = @Usina or TipoLocal = @Base ORDER BY LocalRazaoSocial";
+        string query = @"SELECT * FROM Locais WHERE (TipoLocal = @Usina OR TipoLocal = @Base) AND Ativo = @Sim ORDER BY LocalRazaoSocial";
 
-        List<Locais> lista = connection.Query<Locais>(query, new{TipoLocal.Usina, TipoLocal.Base}).AsList();
+        List<Locais> lista = connection.Query<Locais>(query, new{TipoLocal.Usina, TipoLocal.Base, Ativo.Sim}).AsList();
 
         return lista;
     }
@@ -109,7 +110,8 @@ public class LocaisData : Database, ILocaisData
                             Cidade = @Cidade,
                             Estado = @Estado,
                             Numero = @Numero,
-                            Complemento = @Complemento
+                            Complemento = @Complemento,
+                            Ativo = @Ativo
                         WHERE 
                             IdLocal = @IdLocal";
 

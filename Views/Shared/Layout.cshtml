@@ -34,49 +34,52 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <div class="container-fluid">
-            
-            <a class="navbar-brand" href="/">
-                <h1 class="title-inter text-white">INTER<span class="text-green">COMM</span></h1>
-            </a>
+    @if(!string.IsNullOrEmpty(title) && title != "Login")
+    {
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container-fluid">
+                
+                <a class="navbar-brand" href="/">
+                    <h1 class="title-inter text-white">INTER<span class="text-green">COMM</span></h1>
+                </a>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-                <ul class="navbar-nav me-auto">
+                    <ul class="navbar-nav me-auto">
+                        
+                    </ul> 
                     
-                </ul> 
-
-                <ul class="navbar-nav d-flex justify-content-end align-items-end">
-                    <li class="nav-item">
-                        @if (!string.IsNullOrEmpty(title))
-                        {
-                            <h3 class="title-inter text-white">@title.ToUpper()</h3>
-                        }
-                    </li>
-                    <li class="nav-item align-items-end">
-                        @if (index == true)
-                        {
-                            <a class="" href="" >
-                                <img src="/src/img/logout.png" height="50px">
-                            </a>
-                        }else
-                        {
-                            <a class="nav-link active" href="" >
-                                <img src="" alt="" height="50px">
-                            </a>
-                        }
-                    </li>
-                </ul>
+                    <ul class="navbar-nav d-flex justify-content-end align-items-end">
+                        <li class="nav-item">
+                            @if (!string.IsNullOrEmpty(title))
+                            {
+                                <a id="a" href="./"><h3 class="title-inter text-white">@title.ToUpper()</h3></a>
+                            }
+                        </li>
+                        <li class="nav-item align-items-end">
+                            @if (index == true)
+                            {
+                                <a class="" href="/user/logout" >
+                                    <img src="/src/img/logout.png" height="50px">
+                                </a>
+                            }else
+                            {
+                                <a class="nav-link active" href="" >
+                                    <img src="" alt="" height="50px">
+                                </a>
+                            }
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
+    }
     @RenderBody()
 </body>
 </html>

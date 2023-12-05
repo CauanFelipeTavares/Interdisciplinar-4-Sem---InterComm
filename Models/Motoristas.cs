@@ -7,4 +7,6 @@ public class Motoristas
     public string? CPF { get; set; }
 
     public string? CNH { get; set; }
+    
+    public Ativo Ativo { get; set; }
 }
